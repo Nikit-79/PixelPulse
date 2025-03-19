@@ -3,195 +3,201 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Pulse</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Pixel Pulse - Research Papers</title>
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,380;1,380&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,380;1,380&display=swap" rel="stylesheet" />
 
-    <!--     jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3e5c76',
+              secondary: '#4F3466',
+              darkBlue: '#0d1321',
+              textPrimary: '#1d2d44',
+              textSecondary: '#748cab',
+              bgLight: '#E6E8E6',
+            },
+            fontFamily: {
+              josefin: ['Josefin Sans', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
 
-    <!--     js -->
-    <script src="script.js" defer></script>
-
-    <!-- Bootstrap 5.3.3 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-
-    <!-- Your Navbar HTML -->
-
-    <!--   friconix icons -->
+    <!-- Icons -->
     <script defer src="https://friconix.com/cdn/friconix.js"></script>
 
-    <!--     bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!--     jquery -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="style.css" />
+    <!-- Custom Scripts -->
+    <script src="script.js" defer></script>
   </head>
 
-  <body>
+  <body class="bg-bgLight font-josefin">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <a href="index.html" class="navbar-brand">
-          <h3>Pixel Pulse</h3>
+    <nav class="bg-darkBlue sticky top-0 z-50 mx-1 my-2 rounded-full px-4 py-2">
+      <div class="container mx-auto flex items-center justify-between">
+        <a href="index.html" class="text-white text-2xl font-semibold">
+          Pixel Pulse
         </a>
 
         <button
-          class="navbar-toggler"
+          class="lg:hidden text-white focus:outline-none"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          onclick="document.getElementById('navbarMenu').classList.toggle('hidden')"
         >
-          <span class="navbar-toggler-icon"></span>
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+        <div id="navbarMenu" class="hidden lg:flex lg:items-center">
+          <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-6">
+            <li>
+              <a href="index.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="team.html">Team</a>
+            <li>
+              <a href="team.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Team</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="newsletters.html">Newsletters</a>
+            <li>
+              <a href="newsletters.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Newsletters</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="research.html">Research</a>
+            <li>
+              <a href="research.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Research</a>
             </li>
-<!--             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li> -->
           </ul>
         </div>
       </div>
     </nav>
 
     <main>
-      <div class="research-hero">
-        <div class="container">
-          <h1>Our Research Papers</h1>
-          <p>A Collection of Our Latest STEM Research</p>
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-br from-bgLight to-textSecondary py-32 text-center shadow-lg">
+        <div class="container mx-auto px-4">
+          <h1 class="text-6xl font-bold text-darkBlue mb-6 animate-fade-in">Our Research Papers</h1>
+          <p class="text-2xl text-textPrimary opacity-85 max-w-3xl mx-auto leading-relaxed">
+            A Collection of Our Latest STEM Research
+          </p>
         </div>
       </div>
 
-      <section>
-        <div class="container">
-          <div class="filters">
-            <button class="filter-btn active" data-category="all">All</button>
-            <button class="filter-btn" data-category="Psychology">
-              Psychology
-            </button>
-            <button class="filter-btn" data-category="Physics + Math">
-              Physics + Math
-            </button>
-            <button class="filter-btn" data-category="Chemistry">
-              Chemistry
-            </button>
-            <button class="filter-btn" data-category="Computer Science">
-              Computer Science
-            </button>
-          </div>
+      <!-- Research Section -->
+      <section class="container mx-auto px-4 py-16">
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <button class="bg-transparent border-2 border-primary text-primary px-6 py-2 rounded-full hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white transition duration-300 active" data-category="all">
+            All
+          </button>
+          <button class="bg-transparent border-2 border-primary text-primary px-6 py-2 rounded-full hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white transition duration-300" data-category="Psychology">
+            Psychology
+          </button>
+          <button class="bg-transparent border-2 border-primary text-primary px-6 py-2 rounded-full hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white transition duration-300" data-category="Physics + Math">
+            Physics + Math
+          </button>
+          <button class="bg-transparent border-2 border-primary text-primary px-6 py-2 rounded-full hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white transition duration-300" data-category="Chemistry">
+            Chemistry
+          </button>
+          <button class="bg-transparent border-2 border-primary text-primary px-6 py-2 rounded-full hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white transition duration-300" data-category="Computer Science">
+            Computer Science
+          </button>
+        </div>
 
-          <div class="research-grid" id="research-cards">
-            <!-- Cards will be dynamically inserted here -->
-          </div>
+        <!-- Research Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="research-cards">
+          <!-- Cards will be dynamically inserted here -->
         </div>
       </section>
     </main>
 
-    <footer>
-      <div class="footer-container">
-        <h3>Pixel Pulse</h3>
+    <!-- Footer -->
+    <footer class="bg-darkBlue text-white pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div>
+            <h3 class="text-2xl font-bold mb-6">Pixel Pulse</h3>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li><a href="index.html" class="hover:text-textSecondary transition duration-300">Home</a></li>
+              <li><a href="#about" class="hover:text-textSecondary transition duration-300">About Us</a></li>
+              <li><a href="#team" class="hover:text-textSecondary transition duration-300">Our Team</a></li>
+              <li><a href="#newsletters" class="hover:text-textSecondary transition duration-300">Featured Newsletter</a></li>
+            </ul>
+          </div>
 
-        <div class="footer-section quick-links">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#team">Our Team</a></li>
-            <li><a href="#newsletters">Featured Newsletter</a></li>
-          </ul>
-        </div>
-        <div class="footer-section services">
-          <h3>Resources</h3>
-          <ul>
-<!--             <li><a href="contact.html">Contact Us</a></li> -->
-            <li><a href="newsletters.html">Newsletters</a></li>
-            <li><a href="research.html">Research Papers</a></li>
-          </ul>
-        </div>
-        <div class="footer-section contact">
-          <h3>Contact Us</h3>
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Resources</h3>
+            <ul class="space-y-2">
+              <li><a href="newsletters.html" class="hover:text-textSecondary transition duration-300">Newsletters</a></li>
+              <li><a href="research.html" class="hover:text-textSecondary transition duration-300">Research Papers</a></li>
+            </ul>
+          </div>
 
-          <!--           <p>Lahore, Pakistan</p> -->
-
-          <div class="social-buttons">
-            <a
-              href="https://linktr.ee/pixelpulsenews"
-              class="social-button social-button--whatsapp"
-              target="_blank"
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-                id="linktree"
-              >
-                <path
-                  fill="#141520"
-                  d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"
-                ></path>
-                <path
-                  fill="#141520"
-                  d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"
-                ></path></svg
-            ></a>
-            <a
-              href="pixelpulsenewsletterr@gmail.com.txt"
-              class="social-button social-button--mail"
-              target="_blank"
-              ><i class="fi-xwsuxl-envelope-solid"></i
-            ></a>
-
-            <a
-              href="https://www.instagram.com/pixelpulsenews/"
-              class="social-button social-button--instagram"
-              target="_blank"
-              ><i class="fi-xnsuxl-instagram"></i
-            ></a>
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+            <div class="flex space-x-4">
+              <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
+                  <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
+                </svg>
+              </a>
+              <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-textSecondary transition duration-300">
+                <i class="fi-xwsuxl-envelope-solid"></i>
+              </a>
+              <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-textSecondary transition duration-300">
+                <i class="fi-xnsuxl-instagram"></i>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="footer-bottom">
-        <p>&copy; 2025 Pixel Pulse. All rights reserved.</p>
+        <div class="border-t border-white/10 mt-12 pt-8 text-center">
+          <p>&copy; 2025 Pixel Pulse. All rights reserved.</p>
+        </div>
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!--     bootstrap javascript -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <script>
+      // Simple mobile menu toggle
+      document.addEventListener('DOMContentLoaded', () => {
+        const navbarMenu = document.getElementById('navbarMenu');
+        const navbarToggle = document.querySelector('.navbar-toggler');
+        
+        if (navbarToggle) {
+          navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('hidden');
+          });
+        }
+
+        // Close menu on window resize if open
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 1024 && !navbarMenu.classList.contains('hidden')) {
+            navbarMenu.classList.add('hidden');
+          }
+        });
+
+        // Filter button functionality
+        const filterButtons = document.querySelectorAll('[data-category]');
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active', 'bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white'));
+            // Add active class to clicked button
+            button.classList.add('active', 'bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white');
+            
+            // Filter functionality will be handled by script.js
+          });
+        });
+      });
+    </script>
   </body>
 </html>
