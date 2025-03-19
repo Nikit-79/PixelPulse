@@ -4,135 +4,168 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Pulse - Newsletters</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,380;1,380&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3B82F6',
-                        secondary: '#1E40AF',
-                        accent: '#60A5FA'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3e5c76',
+              secondary: '#4F3466',
+              darkBlue: '#0d1321',
+              textPrimary: '#1d2d44',
+              textSecondary: '#748cab',
+              bgLight: '#E6E8E6',
+            },
+            fontFamily: {
+              josefin: ['Josefin Sans', 'sans-serif'],
+            },
+          },
+        },
+      }
     </script>
   </head>
 
-  <body class="bg-gray-50 font-sans">
+  <body class="bg-bgLight font-josefin">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex">
-            <div class="flex-shrink-0 flex items-center">
-              <a href="index.html" class="text-2xl font-bold text-primary">Pixel Pulse</a>
-            </div>
-            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <a href="index.html" class="text-gray-500 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Home</a>
-              <a href="team.html" class="text-gray-500 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Team</a>
-              <a href="newsletters.html" class="text-primary border-b-2 border-primary px-3 py-2 rounded-md text-sm font-medium">Newsletters</a>
-              <a href="research.html" class="text-gray-500 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Research</a>
-            </div>
-          </div>
-          <div class="-mr-2 flex items-center sm:hidden">
-            <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
-              <span class="sr-only">Open main menu</span>
-              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- Mobile menu -->
-      <div class="sm:hidden hidden mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-          <a href="index.html" class="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
-          <a href="team.html" class="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Team</a>
-          <a href="newsletters.html" class="text-primary block px-3 py-2 rounded-md text-base font-medium">Newsletters</a>
-          <a href="research.html" class="text-gray-500 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Research</a>
+    <nav class="bg-darkBlue sticky top-0 z-50 mx-1 my-2 rounded-full px-4 py-2">
+      <div class="container mx-auto flex items-center justify-between">
+        <a href="index.html" class="text-white text-2xl font-semibold">
+          Pixel Pulse
+        </a>
+
+        <button
+          class="lg:hidden text-white focus:outline-none"
+          type="button"
+          onclick="document.getElementById('navbarMenu').classList.toggle('hidden')"
+        >
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <div id="navbarMenu" class="hidden lg:flex lg:items-center">
+          <ul class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-6">
+            <li>
+              <a href="index.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Home</a>
+            </li>
+            <li>
+              <a href="team.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Team</a>
+            </li>
+            <li>
+              <a href="newsletters.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Newsletters</a>
+            </li>
+            <li>
+              <a href="research.html" class="text-white hover:bg-white/10 px-4 py-2 rounded-full transition duration-300">Research</a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-primary to-secondary py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h1 class="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Our Newsletters
-          </h1>
-          <p class="mt-3 max-w-md mx-auto text-base text-gray-100 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Stay updated with our latest insights, research findings, and community updates.
-          </p>
-        </div>
+    <div class="bg-gradient-to-br from-bgLight to-textSecondary py-32 text-center shadow-lg">
+      <div class="container mx-auto px-4">
+        <h1 class="text-6xl font-bold text-darkBlue mb-6 animate-fade-in">Our Newsletters</h1>
+        <p class="text-2xl text-textPrimary opacity-85 max-w-3xl mx-auto leading-relaxed">
+          Stay updated with our latest insights, research findings, and community updates
+        </p>
       </div>
     </div>
 
     <!-- Featured Newsletter -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Newsletter</h2>
-      <div id="featured-newsletter" class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="container mx-auto px-4 py-16">
+      <h2 class="text-4xl font-bold text-primary mb-12 text-center">Featured Newsletter</h2>
+      <div id="featured-newsletter" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition duration-300">
         <!-- Featured newsletter content will be dynamically inserted here -->
       </div>
     </div>
 
     <!-- All Newsletters -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8">All Newsletters</h2>
-      <div id="newsletter-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="container mx-auto px-4 py-16">
+      <h2 class="text-4xl font-bold text-primary mb-12 text-center">All Newsletters</h2>
+      <div id="newsletter-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Newsletter cards will be dynamically inserted here -->
       </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer class="bg-darkBlue text-white pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div>
-            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 class="text-2xl font-bold mb-6">Pixel Pulse</h3>
+            <p class="text-gray-300">Empowering youth through tech journalism and STEM research.</p>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
             <ul class="space-y-2">
-              <li><a href="index.html" class="hover:text-primary">Home</a></li>
-              <li><a href="team.html" class="hover:text-primary">Team</a></li>
-              <li><a href="newsletters.html" class="hover:text-primary">Newsletters</a></li>
-              <li><a href="research.html" class="hover:text-primary">Research</a></li>
+              <li><a href="index.html" class="hover:text-textSecondary transition duration-300">Home</a></li>
+              <li><a href="index.html#about" class="hover:text-textSecondary transition duration-300">About Us</a></li>
+              <li><a href="team.html" class="hover:text-textSecondary transition duration-300">Our Team</a></li>
+              <li><a href="newsletters.html" class="hover:text-textSecondary transition duration-300">Newsletters</a></li>
+              <li><a href="research.html" class="hover:text-textSecondary transition duration-300">Research</a></li>
             </ul>
           </div>
+
           <div>
-            <h3 class="text-lg font-semibold mb-4">Resources</h3>
+            <h3 class="text-xl font-semibold mb-4">Resources</h3>
             <ul class="space-y-2">
-              <li><a href="#" class="hover:text-primary">Documentation</a></li>
-              <li><a href="#" class="hover:text-primary">API</a></li>
-              <li><a href="#" class="hover:text-primary">Support</a></li>
+              <li><a href="newsletters.html#featured" class="hover:text-textSecondary transition duration-300">Featured Newsletter</a></li>
+              <li><a href="research.html#papers" class="hover:text-textSecondary transition duration-300">Research Papers</a></li>
+              <li><a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">Additional Resources</a></li>
             </ul>
           </div>
+
           <div>
-            <h3 class="text-lg font-semibold mb-4">Contact</h3>
-            <ul class="space-y-2">
-              <li>Email: contact@pixelpulse.com</li>
-              <li>Phone: (555) 123-4567</li>
-              <li>Address: 123 Tech Street, Digital City</li>
-            </ul>
+            <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+            <div class="space-y-4">
+              <div class="flex space-x-4">
+                <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
+                    <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
+                  </svg>
+                </a>
+                <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-textSecondary transition duration-300">
+                  <i class="fi-xwsuxl-envelope-solid"></i>
+                </a>
+                <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-textSecondary transition duration-300">
+                  <i class="fi-xnsuxl-instagram"></i>
+                </a>
+              </div>
+              <p class="text-gray-300">Connect with us on social media or drop us an email!</p>
+            </div>
           </div>
         </div>
-        <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p>&copy; 2024 Pixel Pulse. All rights reserved.</p>
+
+        <div class="border-t border-white/10 mt-12 pt-8 text-center">
+          <p>&copy; 2025 Pixel Pulse. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
     <script>
       // Mobile menu toggle
-      document.querySelector('.mobile-menu-button').addEventListener('click', function() {
-        document.querySelector('.mobile-menu').classList.toggle('hidden');
+      document.addEventListener('DOMContentLoaded', () => {
+        const navbarMenu = document.getElementById('navbarMenu');
+        const navbarToggle = document.querySelector('.navbar-toggler');
+        
+        if (navbarToggle) {
+          navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('hidden');
+          });
+        }
+
+        // Close menu on window resize if open
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 1024 && !navbarMenu.classList.contains('hidden')) {
+            navbarMenu.classList.add('hidden');
+          }
+        });
       });
     </script>
   </body>
