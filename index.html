@@ -27,6 +27,21 @@
             fontFamily: {
               josefin: ['Josefin Sans', 'sans-serif'],
             },
+            animation: {
+              'fade-in': 'fadeIn 1s ease-in',
+              'slide-up': 'slideUp 0.5s ease-out',
+              'bounce-slow': 'bounce 3s infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+            },
           },
         },
       }
@@ -74,42 +89,100 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-gradient-to-br from-bgLight to-textSecondary py-32 text-center shadow-lg">
-      <div class="container mx-auto px-4">
+    <div class="bg-gradient-to-br from-bgLight to-textSecondary py-32 text-center shadow-lg relative overflow-hidden">
+      <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+      <div class="container mx-auto px-4 relative">
         <h1 class="text-6xl font-bold text-darkBlue mb-6 animate-fade-in">Welcome to Pixel Pulse</h1>
-        <p class="text-2xl text-textPrimary opacity-85 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-2xl text-textPrimary opacity-85 max-w-3xl mx-auto leading-relaxed animate-slide-up">
           Empowering the next generation through STEM education
         </p>
+        <div class="mt-8 animate-bounce-slow">
+          <a href="#about" class="text-primary hover:text-darkBlue transition-colors duration-300">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
 
     <main class="container mx-auto px-4">
       <!-- About Section -->
-      <section class="my-24">
-        <h2 class="text-4xl font-bold text-center text-primary mb-8">About Us</h2>
-        <p class="text-xl text-center text-textPrimary max-w-4xl mx-auto">
-          Pixel Pulse is a youth-led initiative dedicated to tech journalism,
-          STEM research, and educational content. Our mission is to provide
-          valuable insights, emerging trends, breaking news, and STEM-related
-          opportunities to empower students and tech enthusiasts.
-        </p>
+      <section id="about" class="my-24 scroll-mt-20">
+        <h2 class="text-4xl font-bold text-center text-primary mb-16">About Us</h2>
+        <div class="max-w-4xl mx-auto text-center mb-16">
+          <p class="text-xl text-textPrimary mb-8">
+            Pixel Pulse is a youth-led initiative dedicated to tech journalism,
+            STEM research, and educational content. Our mission is to provide
+            valuable insights, emerging trends, breaking news, and STEM-related
+            opportunities to empower students and tech enthusiasts.
+          </p>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Tech Journalism Card -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <div class="text-primary text-4xl mb-4">
+              <i class="fi-xnsuxl-newspaper-solid"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-4">Tech Journalism</h3>
+            <p class="text-textPrimary">
+              Stay informed with our cutting-edge coverage of the latest
+              technological advancements, breakthroughs, and industry trends.
+            </p>
+          </div>
+
+          <!-- STEM Research Card -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <div class="text-primary text-4xl mb-4">
+              <i class="fi-xnsuxl-flask-solid"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-4">STEM Research</h3>
+            <p class="text-textPrimary">
+              Explore original research papers and analyses across various STEM
+              fields, contributed by our talented team of young researchers.
+            </p>
+          </div>
+
+          <!-- Educational Content Card -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <div class="text-primary text-4xl mb-4">
+              <i class="fi-xnsuxl-graduation-cap-solid"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-4">Educational Resources</h3>
+            <p class="text-textPrimary">
+              Access comprehensive educational materials, tutorials, and guides
+              designed to support your STEM learning journey.
+            </p>
+          </div>
+        </div>
       </section>
 
       <!-- Team Section -->
       <section class="my-24">
-        <h2 class="text-4xl font-bold text-center text-primary mb-8">Our Team</h2>
+        <h2 class="text-4xl font-bold text-center text-primary mb-16">Meet Our Team</h2>
         <div class="text-center">
+          <p class="text-xl text-textPrimary mb-8 max-w-3xl mx-auto">
+            Our diverse team of passionate students and young professionals is
+            dedicated to bringing you the latest in STEM education and research.
+          </p>
           <a href="team.html" class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
-            Learn More
+            Meet the Team
           </a>
         </div>
       </section>
 
       <!-- Newsletter Section -->
       <section class="my-24">
-        <h2 class="text-4xl font-bold text-center text-primary mb-8">Featured Newsletter</h2>
+        <h2 class="text-4xl font-bold text-center text-primary mb-16">Featured Newsletter</h2>
         <div class="bg-white rounded-xl shadow-xl p-8 max-w-4xl mx-auto transform hover:-translate-y-1 transition duration-300">
           <!-- Newsletter content will be dynamically added here -->
+        </div>
+        <div class="text-center mt-8">
+          <a href="newsletters.html" class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
+            View All Newsletters
+          </a>
         </div>
       </section>
     </main>
@@ -120,41 +193,47 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div>
             <h3 class="text-2xl font-bold mb-6">Pixel Pulse</h3>
+            <p class="text-gray-300">Empowering youth through tech journalism and STEM research.</p>
           </div>
           
           <div>
             <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
             <ul class="space-y-2">
               <li><a href="index.html" class="hover:text-textSecondary transition duration-300">Home</a></li>
-              <li><a href="#about" class="hover:text-textSecondary transition duration-300">About Us</a></li>
-              <li><a href="#team" class="hover:text-textSecondary transition duration-300">Our Team</a></li>
-              <li><a href="#newsletters" class="hover:text-textSecondary transition duration-300">Featured Newsletter</a></li>
+              <li><a href="index.html#about" class="hover:text-textSecondary transition duration-300">About Us</a></li>
+              <li><a href="team.html" class="hover:text-textSecondary transition duration-300">Our Team</a></li>
+              <li><a href="newsletters.html" class="hover:text-textSecondary transition duration-300">Newsletters</a></li>
+              <li><a href="research.html" class="hover:text-textSecondary transition duration-300">Research</a></li>
             </ul>
           </div>
 
           <div>
             <h3 class="text-xl font-semibold mb-4">Resources</h3>
             <ul class="space-y-2">
-              <li><a href="newsletters.html" class="hover:text-textSecondary transition duration-300">Newsletters</a></li>
-              <li><a href="research.html" class="hover:text-textSecondary transition duration-300">Research Papers</a></li>
+              <li><a href="newsletters.html#featured" class="hover:text-textSecondary transition duration-300">Featured Newsletter</a></li>
+              <li><a href="research.html#papers" class="hover:text-textSecondary transition duration-300">Research Papers</a></li>
+              <li><a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">Additional Resources</a></li>
             </ul>
           </div>
 
           <div>
             <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
-            <div class="flex space-x-4">
-              <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
-                  <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
-                </svg>
-              </a>
-              <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-textSecondary transition duration-300">
-                <i class="fi-xwsuxl-envelope-solid"></i>
-              </a>
-              <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-textSecondary transition duration-300">
-                <i class="fi-xnsuxl-instagram"></i>
-              </a>
+            <div class="space-y-4">
+              <div class="flex space-x-4">
+                <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
+                    <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
+                  </svg>
+                </a>
+                <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-textSecondary transition duration-300">
+                  <i class="fi-xwsuxl-envelope-solid"></i>
+                </a>
+                <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-textSecondary transition duration-300">
+                  <i class="fi-xnsuxl-instagram"></i>
+                </a>
+              </div>
+              <p class="text-gray-300">Connect with us on social media or drop us an email!</p>
             </div>
           </div>
         </div>
@@ -166,7 +245,17 @@
     </footer>
 
     <script>
-      // Simple mobile menu toggle
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Mobile menu toggle
       document.addEventListener('DOMContentLoaded', () => {
         const navbarMenu = document.getElementById('navbarMenu');
         const navbarToggle = document.querySelector('.navbar-toggler');
@@ -182,6 +271,24 @@
           if (window.innerWidth >= 1024 && !navbarMenu.classList.contains('hidden')) {
             navbarMenu.classList.add('hidden');
           }
+        });
+
+        // Reveal animations on scroll
+        const revealElements = document.querySelectorAll('.animate-slide-up');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        });
+
+        revealElements.forEach(element => {
+          element.style.opacity = '0';
+          element.style.transform = 'translateY(20px)';
+          element.style.transition = 'all 0.5s ease-out';
+          observer.observe(element);
         });
       });
     </script>
