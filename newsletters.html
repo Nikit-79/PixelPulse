@@ -21,10 +21,25 @@
             fontFamily: {
               josefin: ['Josefin Sans', 'sans-serif'],
             },
+            animation: {
+              'fade-in': 'fadeIn 1s ease-in',
+              'slide-up': 'slideUp 0.5s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+            },
           },
         },
       }
     </script>
+    <script defer src="https://friconix.com/cdn/friconix.js"></script>
   </head>
 
   <body class="bg-bgLight font-josefin">
@@ -75,20 +90,77 @@
     </div>
 
     <!-- Featured Newsletter -->
-    <div class="container mx-auto px-4 py-16">
-      <h2 class="text-4xl font-bold text-primary mb-12 text-center">Featured Newsletter</h2>
-      <div id="featured-newsletter" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition duration-300">
-        <!-- Featured newsletter content will be dynamically inserted here -->
+    <section id="featured-newsletter" class="relative py-16 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 animate-gradient-xy"></div>
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12 text-textPrimary animate-fade-in">Featured Newsletter</h2>
+        <div id="featured-content" class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl max-w-4xl mx-auto">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-xl p-8 bg-white relative z-10">
+            <!-- Featured newsletter content will be dynamically inserted here -->
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- All Newsletters -->
-    <div class="container mx-auto px-4 py-16">
-      <h2 class="text-4xl font-bold text-primary mb-12 text-center">All Newsletters</h2>
-      <div id="newsletter-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Newsletter cards will be dynamically inserted here -->
+    <section id="all-newsletters" class="relative py-16 overflow-hidden bg-darkBlue">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 animate-gradient-xy"></div>
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white animate-fade-in">All Newsletters</h2>
+        <div id="newsletters-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Newsletter cards will be dynamically inserted here -->
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Newsletter Card Template (hidden) -->
+    <template id="newsletter-card-template">
+      <div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-xl p-6 bg-white relative z-10">
+          <div class="relative w-full h-48 mb-6 overflow-hidden rounded-lg">
+            <img src="" alt="Newsletter Cover" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+          </div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-sm text-textSecondary date"></span>
+            <span class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-primary to-secondary rounded-full category"></span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-textPrimary group-hover:text-primary transition-colors duration-300 title"></h3>
+          <p class="text-textSecondary mb-4 line-clamp-3 group-hover:text-textPrimary transition-colors duration-300 content"></p>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-textSecondary author"></span>
+            <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 read-more">
+              Read More <i class="fi-rr-arrow-right ml-1"></i>
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4 tags">
+            <!-- Tags will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Tag Template (hidden) -->
+    <template id="tag-template">
+      <span class="px-2 py-1 text-xs text-textSecondary bg-bgLight rounded-full hover:bg-primary hover:text-white transition-colors duration-300"></span>
+    </template>
+
+    <!-- Join Our Team Section -->
+    <section class="container mx-auto px-4 py-16 bg-gradient-to-br from-primary to-secondary rounded-xl shadow-lg my-16">
+      <div class="text-center text-white">
+        <h2 class="text-4xl font-bold mb-8">Join Our Team</h2>
+        <p class="text-xl mb-12 max-w-2xl mx-auto">
+          Are you passionate about STEM and want to make a difference? We're looking for enthusiastic individuals to join our team!
+        </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSef-R3G7HYDy2rVAFQgWvB-87k99JcJVlSSRxH-iL7ihVaRWA/viewform" 
+           target="_blank"
+           class="inline-block bg-white text-primary px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
+          Apply Now
+        </a>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-darkBlue text-white pt-16 pb-8">
