@@ -1,26 +1,74 @@
 [
   {
-    "image": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/blue-futuristic-networking-technology_53876-100679.avif?v=1739736072944",
-    "title": "AI in Sustainable Energy",
-    "content": "A look into how AI is revolutionizing energy systems for sustainability.",
+    "title": "AI in Sustainable Energy: A Comprehensive Review",
+    "abstract": "This research paper explores the integration of artificial intelligence in sustainable energy systems, focusing on optimization algorithms, predictive maintenance, and grid management. We analyze current implementations and future possibilities.",
+    "author": "Kate Anderson",
     "category": "Chemistry",
     "date": "2025-02-01",
-    "link": " "
+    "link": "#",
+    "tags": ["AI", "Sustainable Energy", "Green Technology"]
   },
   {
-    "image": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/iStock-1383963898.jpg?v=1739736190163",
-    "title": "The Future of Quantum Computing",
-    "content": "An exploration of quantum computing's potential impact on various fields.",
+    "title": "Quantum Computing: Breaking New Ground in Computational Physics",
+    "abstract": "An in-depth analysis of recent breakthroughs in quantum computing and their implications for computational physics. This paper examines quantum algorithms, error correction, and potential applications.",
+    "author": "Rolleen Chen",
     "category": "Physics + Math",
     "date": "2025-02-05",
-    "link": " "
+    "link": "#",
+    "tags": ["Quantum Computing", "Physics", "Computer Science"]
   },
   {
-    "image": "",
-    "title": "Women in STEM: Breaking Barriers",
-    "content": "How women are making a big impact in the STEM fields and how to support them.",
+    "title": "The Psychology of STEM Education: Gender Perspectives",
+    "abstract": "A comprehensive study examining psychological factors affecting gender representation in STEM fields. This research provides insights into effective interventions and support systems.",
+    "author": "Dr. Sarah Martinez",
     "category": "Psychology",
     "date": "2025-02-10",
-    "link": " "
+    "link": "#",
+    "tags": ["Psychology", "Gender Studies", "Education"]
+  },
+  {
+    "title": "Machine Learning Applications in Chemical Analysis",
+    "abstract": "This paper presents novel applications of machine learning algorithms in chemical analysis, including spectroscopy and molecular modeling. We demonstrate improved accuracy and efficiency in chemical predictions.",
+    "author": "Enaya Patel",
+    "category": "Chemistry",
+    "date": "2025-02-15",
+    "link": "#",
+    "tags": ["Machine Learning", "Chemistry", "Analysis"]
+  },
+  {
+    "title": "Neural Networks in Cognitive Development",
+    "abstract": "An exploration of how artificial neural networks can help us understand human cognitive development. This research bridges computer science and developmental psychology.",
+    "author": "Kate Anderson",
+    "category": "Psychology",
+    "date": "2025-02-20",
+    "link": "#",
+    "tags": ["Neural Networks", "Cognitive Science", "Psychology"]
+  },
+  {
+    "title": "Advanced Mathematical Models in Climate Science",
+    "abstract": "This research introduces new mathematical models for climate prediction, incorporating chaos theory and complex systems analysis. We present improved accuracy in long-term climate forecasting.",
+    "author": "Harsith Kumar",
+    "category": "Physics + Math",
+    "date": "2025-02-25",
+    "link": "#",
+    "tags": ["Mathematics", "Climate Science", "Modeling"]
+  },
+  {
+    "title": "Quantum Cryptography: Securing the Future",
+    "abstract": "A detailed examination of quantum cryptography principles and their practical applications in cybersecurity. We discuss current limitations and future possibilities.",
+    "author": "Ana Rodriguez",
+    "category": "Computer Science",
+    "date": "2025-03-01",
+    "link": "#",
+    "tags": ["Quantum Computing", "Cryptography", "Security"]
+  },
+  {
+    "title": "Sustainable Materials in Electronics",
+    "abstract": "This study investigates eco-friendly materials for electronic components, focusing on biodegradable semiconductors and recyclable conductors. We present new approaches to sustainable electronics.",
+    "author": "Lynn Zhang",
+    "category": "Chemistry",
+    "date": "2025-03-05",
+    "link": "#",
+    "tags": ["Materials Science", "Electronics", "Sustainability"]
   }
 ]
