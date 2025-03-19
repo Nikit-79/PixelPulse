@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Pulse - Newsletters</title>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,380;1,380&display=swap" rel="stylesheet" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              primary: '#3e5c76',
-              secondary: '#4F3466',
-              darkBlue: '#0d1321',
-              textPrimary: '#1d2d44',
-              textSecondary: '#748cab',
-              bgLight: '#E6E8E6',
+              'rich-black': '#001219',  // Rich Black
+              'oxford-blue': '#14213D', // Oxford Blue
+              'chambray': '#1B4965',    // Chambray
+              'silverlake': '#5FA8D3',  // Silverlake Blue
+              'platinum': '#E5E5E5',    // Platinum
+              'stardust': '#F8F9FA',    // Stardust White
+              primary: '#1B4965',       // Using Chambray as primary
+              secondary: '#5FA8D3',     // Using Silverlake as secondary
+              darkBlue: '#001219',      // Using Rich Black
+              textPrimary: '#14213D',   // Using Oxford Blue
+              textSecondary: '#5FA8D3', // Using Silverlake
+              bgLight: '#E5E5E5',       // Using Platinum
             },
             fontFamily: {
               josefin: ['Josefin Sans', 'sans-serif'],
@@ -24,6 +32,20 @@
             animation: {
               'fade-in': 'fadeIn 1s ease-in',
               'slide-up': 'slideUp 0.5s ease-out',
+              'bounce-slow': 'bounce 3s infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'gradient-x': 'gradient-x 15s ease infinite',
+              'gradient-y': 'gradient-y 15s ease infinite',
+              'gradient-xy': 'gradient-xy 15s ease infinite',
+              'scale-up': 'scaleUp 0.5s ease-out',
+              'float': 'float 6s ease-in-out infinite',
+              'spin-slow': 'spin 8s linear infinite',
+              'wiggle': 'wiggle 1s ease-in-out infinite',
+              'glow': 'glow 2s ease-in-out infinite',
+              'slide-in-left': 'slideInLeft 0.5s ease-out',
+              'slide-in-right': 'slideInRight 0.5s ease-out',
+              'rotate-center': 'rotateCenter 20s linear infinite',
+              'scale-pulse': 'scalePulse 2s ease-in-out infinite',
             },
             keyframes: {
               fadeIn: {
@@ -34,6 +56,68 @@
                 '0%': { transform: 'translateY(20px)', opacity: '0' },
                 '100%': { transform: 'translateY(0)', opacity: '1' },
               },
+              scaleUp: {
+                '0%': { transform: 'scale(0.8)', opacity: '0' },
+                '100%': { transform: 'scale(1)', opacity: '1' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
+              },
+              glow: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.5', filter: 'brightness(150%)' },
+              },
+              slideInLeft: {
+                '0%': { transform: 'translateX(-100%)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              },
+              slideInRight: {
+                '0%': { transform: 'translateX(100%)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              },
+              rotateCenter: {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' },
+              },
+              scalePulse: {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.05)' },
+              },
+              'gradient-y': {
+                '0%, 100%': {
+                  'background-size': '400% 400%',
+                  'background-position': 'center top'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'center center'
+                }
+              },
+              'gradient-x': {
+                '0%, 100%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'left center'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'right center'
+                }
+              },
+              'gradient-xy': {
+                '0%, 100%': {
+                  'background-size': '400% 400%',
+                  'background-position': 'left center'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'right center'
+                }
+              }
             },
           },
         },
@@ -42,9 +126,9 @@
     <script defer src="https://friconix.com/cdn/friconix.js"></script>
   </head>
 
-  <body class="bg-bgLight font-josefin">
+  <body class="bg-platinum font-josefin">
     <!-- Navigation -->
-    <nav class="bg-darkBlue sticky top-0 z-50 mx-1 my-2 rounded-full px-4 py-2">
+    <nav class="bg-oxford-blue sticky top-0 z-50 mx-1 my-2 rounded-full px-4 py-2">
       <div class="container mx-auto flex items-center justify-between">
         <a href="index.html" class="text-white text-2xl font-semibold">
           Pixel Pulse
@@ -80,75 +164,63 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-gradient-to-br from-bgLight to-textSecondary py-32 text-center shadow-lg">
+    <div class="bg-gradient-to-br from-platinum to-silverlake py-32 text-center shadow-lg">
       <div class="container mx-auto px-4">
-        <h1 class="text-6xl font-bold text-darkBlue mb-6 animate-fade-in">Our Newsletters</h1>
-        <p class="text-2xl text-textPrimary opacity-85 max-w-3xl mx-auto leading-relaxed">
+        <h1 class="text-6xl font-bold text-oxford-blue mb-6 animate-fade-in">Our Newsletters</h1>
+        <p class="text-2xl text-oxford-blue opacity-85 max-w-3xl mx-auto leading-relaxed">
           Stay updated with our latest insights, research findings, and community updates
         </p>
       </div>
     </div>
 
-    <!-- Featured Newsletter -->
-    <section id="featured-newsletter" class="relative py-16 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 animate-gradient-xy"></div>
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-12 text-textPrimary animate-fade-in">Featured Newsletter</h2>
-        <div id="featured-content" class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl max-w-4xl mx-auto">
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-xl p-8 bg-white relative z-10">
-            <!-- Featured newsletter content will be dynamically inserted here -->
-          </div>
+    <!-- Newsletters Section -->
+    <section id="newsletters" class="bg-oxford-blue py-16">
+        <div class="container mx-auto px-4">
+            <!-- Featured Newsletter -->
+            <div id="featured-newsletter" class="mb-16">
+                <h2 class="text-4xl font-bold text-center text-stardust mb-12 animate-fade-in">Featured Newsletter</h2>
+                <div id="featured-content" class="bg-stardust rounded-2xl p-8 shadow-xl"></div>
+            </div>
+
+            <!-- All Newsletters -->
+            <div id="all-newsletters">
+                <h2 class="text-4xl font-bold text-center text-stardust mb-12">All Newsletters</h2>
+                <div id="newsletters-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- All Newsletters -->
-    <section id="all-newsletters" class="relative py-16 overflow-hidden bg-darkBlue">
-      <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 animate-gradient-xy"></div>
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-12 text-white animate-fade-in">All Newsletters</h2>
-        <div id="newsletters-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Newsletter cards will be dynamically inserted here -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter Card Template (hidden) -->
+    <!-- Newsletter Card Template -->
     <template id="newsletter-card-template">
-      <div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-xl p-6 bg-white relative z-10">
-          <div class="relative w-full h-48 mb-6 overflow-hidden rounded-lg">
-            <img src="" alt="Newsletter Cover" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-          </div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-sm text-textSecondary date"></span>
-            <span class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-primary to-secondary rounded-full category"></span>
-          </div>
-          <h3 class="text-xl font-bold mb-3 text-textPrimary group-hover:text-primary transition-colors duration-300 title"></h3>
-          <p class="text-textSecondary mb-4 line-clamp-3 group-hover:text-textPrimary transition-colors duration-300 content"></p>
-          <div class="flex items-center justify-between">
-            <span class="text-sm text-textSecondary author"></span>
-            <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 read-more">
-              Read More <i class="fi-rr-arrow-right ml-1"></i>
-            </a>
-          </div>
-          <div class="flex flex-wrap gap-2 mt-4 tags">
-            <!-- Tags will be dynamically inserted here -->
-          </div>
+        <div class="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
+            <div class="relative">
+                <img class="w-full h-48 object-cover" alt="">
+                <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="date text-sm text-silverlake"></span>
+                    <span class="category px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-chambray to-silverlake rounded-full"></span>
+                </div>
+                <h3 class="title text-xl font-bold text-oxford-blue mb-2 group-hover:text-chambray transition-colors duration-300"></h3>
+                <p class="content text-textSecondary mb-4"></p>
+                <div class="flex items-center justify-between">
+                    <a href="#" class="read-more inline-flex items-center text-chambray hover:text-silverlake transition-colors duration-300">
+                        Read More <i class="fi-rr-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="tags flex flex-wrap gap-2 mt-4"></div>
+            </div>
         </div>
-      </div>
     </template>
 
-    <!-- Tag Template (hidden) -->
+    <!-- Tag Template -->
     <template id="tag-template">
-      <span class="px-2 py-1 text-xs text-textSecondary bg-bgLight rounded-full hover:bg-primary hover:text-white transition-colors duration-300"></span>
+        <span class="px-2 py-1 text-xs text-textSecondary bg-bgLight rounded-full hover:bg-chambray hover:text-white transition-colors duration-300"></span>
     </template>
 
     <!-- Join Our Team Section -->
-    <section class="container mx-auto px-4 py-16 bg-gradient-to-br from-primary to-secondary rounded-xl shadow-lg my-16">
+    <section class="container mx-auto px-4 py-16 bg-gradient-to-br from-chambray to-silverlake rounded-xl shadow-lg my-16">
       <div class="text-center text-white">
         <h2 class="text-4xl font-bold mb-8">Join Our Team</h2>
         <p class="text-xl mb-12 max-w-2xl mx-auto">
@@ -156,14 +228,14 @@
         </p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSef-R3G7HYDy2rVAFQgWvB-87k99JcJVlSSRxH-iL7ihVaRWA/viewform" 
            target="_blank"
-           class="inline-block bg-white text-primary px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
+           class="inline-block bg-white text-chambray px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
           Apply Now
         </a>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-darkBlue text-white pt-16 pb-8">
+    <footer class="bg-oxford-blue text-white pt-16 pb-8">
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div>
@@ -174,20 +246,20 @@
           <div>
             <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
             <ul class="space-y-2">
-              <li><a href="index.html" class="hover:text-textSecondary transition duration-300">Home</a></li>
-              <li><a href="index.html#about" class="hover:text-textSecondary transition duration-300">About Us</a></li>
-              <li><a href="team.html" class="hover:text-textSecondary transition duration-300">Our Team</a></li>
-              <li><a href="newsletters.html" class="hover:text-textSecondary transition duration-300">Newsletters</a></li>
-              <li><a href="research.html" class="hover:text-textSecondary transition duration-300">Research</a></li>
+              <li><a href="index.html" class="hover:text-silverlake transition duration-300">Home</a></li>
+              <li><a href="index.html#about" class="hover:text-silverlake transition duration-300">About Us</a></li>
+              <li><a href="team.html" class="hover:text-silverlake transition duration-300">Our Team</a></li>
+              <li><a href="newsletters.html" class="hover:text-silverlake transition duration-300">Newsletters</a></li>
+              <li><a href="research.html" class="hover:text-silverlake transition duration-300">Research</a></li>
             </ul>
           </div>
 
           <div>
             <h3 class="text-xl font-semibold mb-4">Resources</h3>
             <ul class="space-y-2">
-              <li><a href="newsletters.html#featured" class="hover:text-textSecondary transition duration-300">Featured Newsletter</a></li>
-              <li><a href="research.html#papers" class="hover:text-textSecondary transition duration-300">Research Papers</a></li>
-              <li><a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">Additional Resources</a></li>
+              <li><a href="newsletters.html#featured" class="hover:text-silverlake transition duration-300">Featured Newsletter</a></li>
+              <li><a href="research.html#papers" class="hover:text-silverlake transition duration-300">Research Papers</a></li>
+              <li><a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-silverlake transition duration-300">Additional Resources</a></li>
             </ul>
           </div>
 
@@ -195,16 +267,16 @@
             <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
             <div class="space-y-4">
               <div class="flex space-x-4">
-                <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">
+                <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-silverlake transition duration-300">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
                     <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
                   </svg>
                 </a>
-                <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-textSecondary transition duration-300">
+                <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-silverlake transition duration-300">
                   <i class="fi-xwsuxl-envelope-solid"></i>
                 </a>
-                <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-textSecondary transition duration-300">
+                <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-silverlake transition duration-300">
                   <i class="fi-xnsuxl-instagram"></i>
                 </a>
               </div>
