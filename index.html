@@ -20,12 +20,18 @@
         theme: {
           extend: {
             colors: {
-              primary: '#3e5c76',
-              secondary: '#4F3466',
-              darkBlue: '#0d1321',
-              textPrimary: '#1d2d44',
-              textSecondary: '#748cab',
-              bgLight: '#E6E8E6',
+              'rich-black': '#001219',  // Rich Black
+              'oxford-blue': '#14213D', // Oxford Blue
+              'chambray': '#1B4965',    // Chambray
+              'silverlake': '#5FA8D3',  // Silverlake Blue
+              'platinum': '#E5E5E5',    // Platinum
+              'stardust': '#F8F9FA',    // Stardust White
+              primary: '#1B4965',       // Using Chambray as primary
+              secondary: '#5FA8D3',     // Using Silverlake as secondary
+              darkBlue: '#001219',      // Using Rich Black
+              textPrimary: '#14213D',   // Using Oxford Blue
+              textSecondary: '#5FA8D3', // Using Silverlake
+              bgLight: '#E5E5E5',       // Using Platinum
             },
             fontFamily: {
               josefin: ['Josefin Sans', 'sans-serif'],
@@ -126,12 +132,14 @@
     </script>
 
     <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script defer src="https://friconix.com/cdn/friconix.js"></script>
   </head>
 
-  <body class="bg-bgLight font-josefin">
+  <body class="bg-platinum font-josefin">
     <!-- Navbar -->
-    <nav class="bg-darkBlue sticky top-0 z-50 mx-1 my-2 rounded-full px-4 py-2">
+    <nav class="bg-oxford-blue sticky top-0 z-50 mx-1 my-2 rounded-full px-4 py-2">
       <div class="container mx-auto flex items-center justify-between">
         <a href="index.html" class="text-white text-2xl font-semibold">
           Pixel Pulse
@@ -167,15 +175,15 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-gradient-to-br from-bgLight to-textSecondary py-32 text-center shadow-lg relative overflow-hidden">
+    <div class="bg-gradient-to-br from-platinum to-silverlake py-32 text-center shadow-lg relative overflow-hidden">
       <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
       <div class="container mx-auto px-4 relative">
-        <h1 class="text-6xl font-bold text-darkBlue mb-6 animate-fade-in">Welcome to Pixel Pulse</h1>
-        <p class="text-2xl text-textPrimary opacity-85 max-w-3xl mx-auto leading-relaxed animate-slide-up">
+        <h1 class="text-6xl font-bold text-oxford-blue mb-6 animate-fade-in">Welcome to Pixel Pulse</h1>
+        <p class="text-2xl text-oxford-blue opacity-85 max-w-3xl mx-auto leading-relaxed animate-slide-up">
           Empowering the next generation through STEM education
         </p>
         <div class="mt-8 animate-bounce-slow">
-          <a href="#about" class="text-primary hover:text-darkBlue transition-colors duration-300">
+          <a href="#about" class="text-chambray hover:text-oxford-blue transition-colors duration-300">
             <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
@@ -187,9 +195,9 @@
     <main class="container mx-auto px-4">
       <!-- About Section -->
       <section id="about" class="my-24 scroll-mt-20">
-        <h2 class="text-4xl font-bold text-center text-primary mb-16">About Us</h2>
+        <h2 class="text-4xl font-bold text-center text-chambray mb-16">About Us</h2>
         <div class="max-w-4xl mx-auto text-center mb-16">
-          <p class="text-xl text-textPrimary mb-8">
+          <p class="text-xl text-oxford-blue mb-8">
             Pixel Pulse is a youth-led initiative dedicated to tech journalism,
             STEM research, and educational content. Our mission is to provide
             valuable insights, emerging trends, breaking news, and STEM-related
@@ -201,11 +209,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Tech Journalism Card -->
           <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <div class="text-primary text-4xl mb-4">
+            <div class="text-chambray text-4xl mb-4">
               <i class="fi-xnsuxl-newspaper-solid"></i>
             </div>
-            <h3 class="text-2xl font-bold text-primary mb-4">Tech Journalism</h3>
-            <p class="text-textPrimary">
+            <h3 class="text-2xl font-bold text-chambray mb-4">Tech Journalism</h3>
+            <p class="text-oxford-blue">
               Stay informed with our cutting-edge coverage of the latest
               technological advancements, breakthroughs, and industry trends.
             </p>
@@ -213,11 +221,11 @@
 
           <!-- STEM Research Card -->
           <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <div class="text-primary text-4xl mb-4">
+            <div class="text-chambray text-4xl mb-4">
               <i class="fi-xnsuxl-flask-solid"></i>
             </div>
-            <h3 class="text-2xl font-bold text-primary mb-4">STEM Research</h3>
-            <p class="text-textPrimary">
+            <h3 class="text-2xl font-bold text-chambray mb-4">STEM Research</h3>
+            <p class="text-oxford-blue">
               Explore original research papers and analyses across various STEM
               fields, contributed by our talented team of young researchers.
             </p>
@@ -225,11 +233,11 @@
 
           <!-- Educational Content Card -->
           <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-            <div class="text-primary text-4xl mb-4">
+            <div class="text-chambray text-4xl mb-4">
               <i class="fi-xnsuxl-graduation-cap-solid"></i>
             </div>
-            <h3 class="text-2xl font-bold text-primary mb-4">Educational Resources</h3>
-            <p class="text-textPrimary">
+            <h3 class="text-2xl font-bold text-chambray mb-4">Educational Resources</h3>
+            <p class="text-oxford-blue">
               Access comprehensive educational materials, tutorials, and guides
               designed to support your STEM learning journey.
             </p>
@@ -239,345 +247,345 @@
 
       <!-- Newsletter Section -->
       <section class="my-24">
-        <h2 class="text-4xl font-bold text-center text-primary mb-16">Featured Newsletter</h2>
-        <div id="featured-newsletter" class="max-w-4xl mx-auto transform hover:-translate-y-1 transition duration-300">
+        <h2 class="text-4xl font-bold text-center text-chambray mb-16">Featured Newsletter</h2>
+        <div id="featured-newsletter" class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
           <!-- Newsletter content will be dynamically added here -->
         </div>
         <div class="text-center mt-8">
-          <a href="newsletters.html" class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
+          <a href="newsletters.html" class="inline-block bg-gradient-to-r from-chambray to-silverlake text-white px-8 py-3 rounded-full font-medium hover:transform hover:-translate-y-1 transition duration-300">
             View All Newsletters
           </a>
         </div>
       </section>
 
       <!-- STEM Research Section -->
-      <section id="stem-research" class="relative py-16 overflow-hidden rounded-2xl">
-        <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 animate-gradient-xy rounded-2xl"></div>
+      <section id="stem-research" class="relative py-16 overflow-hidden rounded-2xl bg-platinum">
+        <div class="absolute inset-0 bg-gradient-to-br from-chambray/10 to-silverlake/10 animate-gradient-xy rounded-2xl"></div>
         <div class="container mx-auto px-4">
-          <h2 class="text-4xl font-bold text-center mb-12 text-textPrimary animate-fade-in">STEM Research</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Psychology Card -->
-            <div class="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-              <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-2xl p-6 bg-white relative z-10">
-                <div class="w-16 h-16 mx-auto mb-4 relative">
-                  <i class="fi-rr-brain text-4xl text-primary group-hover:text-secondary transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-float"></i>
-                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full animate-pulse-slow"></div>
+            <h2 class="text-4xl font-bold text-center mb-12 text-oxford-blue animate-fade-in">STEM Research</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Psychology Card -->
+                <div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                    <div class="border-4 border-gradient-to-br from-chambray to-silverlake p-6 bg-white relative z-10 rounded-[0.66rem]">
+                        <div class="w-16 h-16 mx-auto mb-4 relative">
+                            <i class="fas fa-brain text-4xl text-chambray group-hover:text-silverlake transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-float"></i>
+                            <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 rounded-full animate-pulse-slow"></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-oxford-blue group-hover:text-chambray transition-colors duration-300">Psychology</h3>
+                        <p class="text-silverlake text-center group-hover:text-oxford-blue transition-colors duration-300">Exploring human behavior and cognitive processes through empirical research.</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-textPrimary group-hover:text-primary transition-colors duration-300">Psychology</h3>
-                <p class="text-textSecondary text-center group-hover:text-textPrimary transition-colors duration-300">Exploring human behavior and cognitive processes through empirical research.</p>
-              </div>
+
+                <!-- Physics Card -->
+                <div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                    <div class="border-4 border-gradient-to-br from-chambray to-silverlake p-6 bg-white relative z-10 rounded-[0.66rem]">
+                        <div class="w-16 h-16 mx-auto mb-4 relative">
+                            <i class="fas fa-atom text-4xl text-chambray group-hover:text-silverlake transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-spin-slow"></i>
+                            <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 rounded-full animate-pulse-slow"></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-oxford-blue group-hover:text-chambray transition-colors duration-300">Physics</h3>
+                        <p class="text-silverlake text-center group-hover:text-oxford-blue transition-colors duration-300">Understanding the fundamental laws that govern the universe.</p>
+                    </div>
+                </div>
+
+                <!-- Chemistry Card -->
+                <div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                    <div class="border-4 border-gradient-to-br from-chambray to-silverlake p-6 bg-white relative z-10 rounded-[0.66rem]">
+                        <div class="w-16 h-16 mx-auto mb-4 relative">
+                            <i class="fas fa-flask text-4xl text-chambray group-hover:text-silverlake transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-wiggle"></i>
+                            <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 rounded-full animate-pulse-slow"></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-oxford-blue group-hover:text-chambray transition-colors duration-300">Chemistry</h3>
+                        <p class="text-silverlake text-center group-hover:text-oxford-blue transition-colors duration-300">Investigating matter, its properties, and how it interacts with energy.</p>
+                    </div>
+                </div>
+
+                <!-- Computer Science Card -->
+                <div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                    <div class="border-4 border-gradient-to-br from-chambray to-silverlake p-6 bg-white relative z-10 rounded-[0.66rem]">
+                        <div class="w-16 h-16 mx-auto mb-4 relative">
+                            <i class="fas fa-laptop-code text-4xl text-chambray group-hover:text-silverlake transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-glow"></i>
+                            <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 rounded-full animate-pulse-slow"></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-oxford-blue group-hover:text-chambray transition-colors duration-300">Computer Science</h3>
+                        <p class="text-silverlake text-center group-hover:text-oxford-blue transition-colors duration-300">Advancing technology through innovative algorithms and software solutions.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Physics Card -->
-            <div class="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-              <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-2xl p-6 bg-white relative z-10">
-                <div class="w-16 h-16 mx-auto mb-4 relative">
-                  <i class="fi-rr-atom text-4xl text-primary group-hover:text-secondary transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-spin-slow"></i>
-                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full animate-pulse-slow"></div>
-                </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-textPrimary group-hover:text-primary transition-colors duration-300">Physics</h3>
-                <p class="text-textSecondary text-center group-hover:text-textPrimary transition-colors duration-300">Understanding the fundamental laws that govern the universe.</p>
-              </div>
+            <div class="text-center mt-12">
+                <a href="#research-papers" class="inline-block px-8 py-3 bg-gradient-to-r from-chambray to-silverlake text-stardust rounded-full font-semibold transform hover:scale-105 transition-transform duration-300 animate-bounce-slow">
+                    View Research Papers
+                </a>
             </div>
+        </div>
+    </section>
 
-            <!-- Chemistry Card -->
-            <div class="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-              <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-2xl p-6 bg-white relative z-10">
-                <div class="w-16 h-16 mx-auto mb-4 relative">
-                  <i class="fi-rr-flask text-4xl text-primary group-hover:text-secondary transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-wiggle"></i>
-                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full animate-pulse-slow"></div>
-                </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-textPrimary group-hover:text-primary transition-colors duration-300">Chemistry</h3>
-                <p class="text-textSecondary text-center group-hover:text-textPrimary transition-colors duration-300">Investigating matter, its properties, and how it interacts with energy.</p>
-              </div>
-            </div>
+    <!-- Join Our Team Section -->
+    <section class="my-24 bg-gradient-to-br from-chambray to-silverlake rounded-xl shadow-lg p-16 relative overflow-hidden">
+      <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 animate-pulse"></div>
+      <div class="text-center text-white relative z-10">
+        <h2 class="text-4xl font-bold mb-8 animate-fade-in">Join Our Team</h2>
+        <p class="text-xl mb-12 max-w-2xl mx-auto animate-slide-up">
+          Are you passionate about STEM and want to make a difference? We're looking for enthusiastic individuals to join our team!
+        </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSef-R3G7HYDy2rVAFQgWvB-87k99JcJVlSSRxH-iL7ihVaRWA/viewform" 
+           target="_blank"
+           class="inline-block bg-white text-chambray px-8 py-3 rounded-full font-medium hover:transform hover:scale-110 transition duration-300 animate-bounce-slow">
+          Apply Now
+        </a>
+      </div>
+    </section>
 
-            <!-- Computer Science Card -->
-            <div class="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-              <div class="border-4 border-gradient-to-br from-primary to-secondary rounded-2xl p-6 bg-white relative z-10">
-                <div class="w-16 h-16 mx-auto mb-4 relative">
-                  <i class="fi-rr-computer text-4xl text-primary group-hover:text-secondary transition-colors duration-300 absolute inset-0 flex items-center justify-center animate-glow"></i>
-                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full animate-pulse-slow"></div>
-                </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-textPrimary group-hover:text-primary transition-colors duration-300">Computer Science</h3>
-                <p class="text-textSecondary text-center group-hover:text-textPrimary transition-colors duration-300">Advancing technology through innovative algorithms and software solutions.</p>
+    <!-- Team Section -->
+    <section class="my-24">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-chambray mb-16">Meet Our Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Soha -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/soha.jpg?v=1739739309844" 
+                 alt="Soha" 
+                 class="w-32 h-32 rounded-full mx-auto mb-6 object-cover" />
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-chambray mb-2">Soha</h3>
+              <p class="text-silverlake mb-4">Founder & President</p>
+              <p class="text-oxford-blue mb-6">
+                Hi there! I'm Soha, the founder and president of Pixel Pulse.
+                I'm currently pursuing STEM and planning to major in either
+                computer science or data science at university.
+              </p>
+              <div class="flex justify-center space-x-4">
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-linkedin text-xl"></i>
+                </a>
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-github text-xl"></i>
+                </a>
               </div>
             </div>
           </div>
 
-          <div class="text-center mt-12">
-            <a href="#research-papers" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full font-semibold transform hover:scale-105 transition-transform duration-300 animate-bounce-slow">
-              View Research Papers
-            </a>
+          <!-- Harsith -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/harsith.jpg?v=1739739350036" 
+                 alt="Harsith" 
+                 class="w-32 h-32 rounded-full mx-auto mb-6 object-cover" />
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-chambray mb-2">Harsith</h3>
+              <p class="text-silverlake mb-4">Newsletter Director</p>
+              <p class="text-oxford-blue mb-6">
+                Hey there! I'm Harsith, a high school student super passionate
+                about space, coffee, and badminton. I'm a STEM student and I
+                love tinkering with projects and solving problems.
+              </p>
+              <div class="flex justify-center space-x-4">
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-linkedin text-xl"></i>
+                </a>
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-github text-xl"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nikit -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
+            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/breana2.jpg?v=1740245037363" 
+                 alt="Nikit" 
+                 class="w-32 h-32 rounded-full mx-auto mb-6 object-cover" />
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-chambray mb-2">Nikit</h3>
+              <p class="text-silverlake mb-4">Website Lead</p>
+              <p class="text-oxford-blue mb-6">
+                Hi, I'm Nikit, a high school freshman passionate about computer science,
+                entrepreneurship, and SaaS development. I enjoy building web applications
+                and exploring new technologies.
+              </p>
+              <div class="flex justify-center space-x-4">
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-linkedin text-xl"></i>
+                </a>
+                <a href="#" class="text-chambray hover:text-silverlake transition-colors duration-300 animate-float">
+                  <i class="fi-brands-github text-xl"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- Join Our Team Section -->
-      <section class="my-24 bg-gradient-to-br from-primary to-secondary rounded-xl shadow-lg p-16 relative overflow-hidden">
-        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 animate-pulse"></div>
-        <div class="text-center text-white relative z-10">
-          <h2 class="text-4xl font-bold mb-8 animate-fade-in">Join Our Team</h2>
-          <p class="text-xl mb-12 max-w-2xl mx-auto animate-slide-up">
-            Are you passionate about STEM and want to make a difference? We're looking for enthusiastic individuals to join our team!
-          </p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSef-R3G7HYDy2rVAFQgWvB-87k99JcJVlSSRxH-iL7ihVaRWA/viewform" 
-             target="_blank"
-             class="inline-block bg-white text-primary px-8 py-3 rounded-full font-medium hover:transform hover:scale-110 transition duration-300 animate-bounce-slow">
-            Apply Now
+        <div class="text-center mt-12">
+          <a href="team.html" class="inline-block px-8 py-3 bg-gradient-to-r from-chambray to-silverlake text-white rounded-full font-semibold transform hover:scale-105 transition-transform duration-300 animate-bounce-slow">
+            Meet the Full Team
           </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Team Section -->
-      <section class="my-24">
-        <div class="container mx-auto px-4">
-          <h2 class="text-4xl font-bold text-center text-primary mb-16">Meet Our Team</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Soha -->
-            <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-              <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/soha.jpg?v=1739739309844" 
-                   alt="Soha" 
-                   class="w-32 h-32 rounded-full mx-auto mb-6 object-cover" />
-              <div class="text-center">
-                <h3 class="text-2xl font-bold text-primary mb-2">Soha</h3>
-                <p class="text-textSecondary mb-4">Founder & President</p>
-                <p class="text-textPrimary mb-6">
-                  Hi there! I'm Soha, the founder and president of Pixel Pulse.
-                  I'm currently pursuing STEM and planning to major in either
-                  computer science or data science at university.
-                </p>
-                <div class="flex justify-center space-x-4">
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-twitter text-xl"></i>
-                  </a>
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-linkedin text-xl"></i>
-                  </a>
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-github text-xl"></i>
-                  </a>
-                </div>
-              </div>
+    <!-- Get in Touch Section -->
+    <section id="get-in-touch" class="py-16 bg-gradient-to-br from-white to-platinum relative overflow-hidden">
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-chambray/5 to-silverlake/5"></div>
+        <div class="absolute inset-0 border-4 border-gradient-to-br from-chambray to-silverlake opacity-20 rounded-3xl m-4"></div>
+      </div>
+      <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-4xl font-bold text-center text-chambray mb-12 animate-fade-in">Get in Touch</h2>
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 transform hover:scale-[1.01] transition-all duration-300 relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-chambray/10 to-silverlake/10 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+          <form id="contact-form" onsubmit="sendEmail(event)" class="relative z-10">
+            <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
+              <label for="name" class="block text-oxford-blue mb-2">Name</label>
+              <input type="text" id="name" name="name" required
+                     class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-chambray/50 focus:border-transparent transition-all duration-300">
             </div>
-
-            <!-- Harsith -->
-            <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-              <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/harsith.jpg?v=1739739350036" 
-                   alt="Harsith" 
-                   class="w-32 h-32 rounded-full mx-auto mb-6 object-cover" />
-              <div class="text-center">
-                <h3 class="text-2xl font-bold text-primary mb-2">Harsith</h3>
-                <p class="text-textSecondary mb-4">Newsletter Director</p>
-                <p class="text-textPrimary mb-6">
-                  Hey there! I'm Harsith, a high school student super passionate
-                  about space, coffee, and badminton. I'm a STEM student and I
-                  love tinkering with projects and solving problems.
-                </p>
-                <div class="flex justify-center space-x-4">
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-twitter text-xl"></i>
-                  </a>
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-linkedin text-xl"></i>
-                  </a>
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-github text-xl"></i>
-                  </a>
-                </div>
-              </div>
+            <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
+              <label for="email" class="block text-oxford-blue mb-2">Email</label>
+              <input type="email" id="email" name="email" required
+                     class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-chambray/50 focus:border-transparent transition-all duration-300">
             </div>
-
-            <!-- Nikit -->
-            <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition duration-300">
-              <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/breana2.jpg?v=1740245037363" 
-                   alt="Nikit" 
-                   class="w-32 h-32 rounded-full mx-auto mb-6 object-cover" />
-              <div class="text-center">
-                <h3 class="text-2xl font-bold text-primary mb-2">Nikit</h3>
-                <p class="text-textSecondary mb-4">Website Lead</p>
-                <p class="text-textPrimary mb-6">
-                  Hi, I'm Nikit, a high school freshman passionate about computer science,
-                  entrepreneurship, and SaaS development. I enjoy building web applications
-                  and exploring new technologies.
-                </p>
-                <div class="flex justify-center space-x-4">
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-twitter text-xl"></i>
-                  </a>
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-linkedin text-xl"></i>
-                  </a>
-                  <a href="#" class="text-primary hover:text-secondary transition-colors duration-300 animate-float">
-                    <i class="fi-brands-github text-xl"></i>
-                  </a>
-                </div>
-              </div>
+            <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
+              <label for="subject" class="block text-oxford-blue mb-2">Subject</label>
+              <input type="text" id="subject" name="subject" required
+                     class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-chambray/50 focus:border-transparent transition-all duration-300">
             </div>
-          </div>
-
-          <div class="text-center mt-12">
-            <a href="team.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full font-semibold transform hover:scale-105 transition-transform duration-300 animate-bounce-slow">
-              Meet the Full Team
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Get in Touch Section -->
-      <section id="get-in-touch" class="py-16 bg-gradient-to-br from-white to-bgLight relative overflow-hidden">
-        <div class="absolute inset-0">
-          <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5"></div>
-          <div class="absolute inset-0 border-4 border-gradient-to-br from-primary to-secondary opacity-20 rounded-3xl m-4"></div>
-        </div>
-        <div class="container mx-auto px-4 relative z-10">
-          <h2 class="text-4xl font-bold text-center text-primary mb-12 animate-fade-in">Get in Touch</h2>
-          <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 transform hover:scale-[1.01] transition-all duration-300 relative">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-            <form id="contact-form" onsubmit="sendEmail(event)" class="relative z-10">
-              <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
-                <label for="name" class="block text-textPrimary mb-2">Name</label>
-                <input type="text" id="name" name="name" required
-                       class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all duration-300">
-              </div>
-              <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
-                <label for="email" class="block text-textPrimary mb-2">Email</label>
-                <input type="email" id="email" name="email" required
-                       class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all duration-300">
-              </div>
-              <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
-                <label for="subject" class="block text-textPrimary mb-2">Subject</label>
-                <input type="text" id="subject" name="subject" required
-                       class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all duration-300">
-              </div>
-              <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
-                <label for="message" class="block text-textPrimary mb-2">Message</label>
-                <textarea id="message" name="message" rows="4" required
-                          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all duration-300"></textarea>
-              </div>
-              <div class="text-center">
-                <button type="submit"
-                        class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full hover:scale-110 transform transition-all duration-300 animate-pulse">
-                  Send Message
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-darkBlue text-white pt-16 pb-8">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div>
-            <h3 class="text-2xl font-bold mb-6">Pixel Pulse</h3>
-            <p class="text-gray-300">Empowering youth through tech journalism and STEM research.</p>
-          </div>
-          
-          <div>
-            <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
-            <ul class="space-y-2">
-              <li><a href="index.html" class="hover:text-textSecondary transition duration-300">Home</a></li>
-              <li><a href="index.html#about" class="hover:text-textSecondary transition duration-300">About Us</a></li>
-              <li><a href="team.html" class="hover:text-textSecondary transition duration-300">Our Team</a></li>
-              <li><a href="newsletters.html" class="hover:text-textSecondary transition duration-300">Newsletters</a></li>
-              <li><a href="research.html" class="hover:text-textSecondary transition duration-300">Research</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-xl font-semibold mb-4">Resources</h3>
-            <ul class="space-y-2">
-              <li><a href="newsletters.html#featured" class="hover:text-textSecondary transition duration-300">Featured Newsletter</a></li>
-              <li><a href="research.html#papers" class="hover:text-textSecondary transition duration-300">Research Papers</a></li>
-              <li><a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">Additional Resources</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
-            <div class="space-y-4">
-              <div class="flex space-x-4">
-                <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-textSecondary transition duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
-                    <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
-                  </svg>
-                </a>
-                <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-textSecondary transition duration-300">
-                  <i class="fi-xwsuxl-envelope-solid"></i>
-                </a>
-                <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-textSecondary transition duration-300">
-                  <i class="fi-xnsuxl-instagram"></i>
-                </a>
-              </div>
-              <p class="text-gray-300">Connect with us on social media or drop us an email!</p>
+            <div class="mb-6 transform hover:scale-[1.02] transition-all duration-300">
+              <label for="message" class="block text-oxford-blue mb-2">Message</label>
+              <textarea id="message" name="message" rows="4" required
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-chambray/50 focus:border-transparent transition-all duration-300"></textarea>
             </div>
-          </div>
-        </div>
-
-        <div class="border-t border-white/10 mt-12 pt-8 text-center">
-          <p>&copy; 2025 Pixel Pulse. All rights reserved.</p>
+            <div class="text-center">
+              <button type="submit"
+                      class="px-8 py-3 bg-gradient-to-r from-chambray to-silverlake text-white rounded-full hover:scale-110 transform transition-all duration-300 animate-pulse">
+                Send Message
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    </footer>
+    </section>
 
-    <script>
-      // Smooth scroll for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-oxford-blue text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div>
+          <h3 class="text-2xl font-bold mb-6">Pixel Pulse</h3>
+          <p class="text-gray-300">Empowering youth through tech journalism and STEM research.</p>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-silverlake transition duration-300">Home</a></li>
+            <li><a href="index.html#about" class="hover:text-silverlake transition duration-300">About Us</a></li>
+            <li><a href="team.html" class="hover:text-silverlake transition duration-300">Our Team</a></li>
+            <li><a href="newsletters.html" class="hover:text-silverlake transition duration-300">Newsletters</a></li>
+            <li><a href="research.html" class="hover:text-silverlake transition duration-300">Research</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Resources</h3>
+          <ul class="space-y-2">
+            <li><a href="newsletters.html#featured" class="hover:text-silverlake transition duration-300">Featured Newsletter</a></li>
+            <li><a href="research.html#papers" class="hover:text-silverlake transition duration-300">Research Papers</a></li>
+            <li><a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-silverlake transition duration-300">Additional Resources</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+          <div class="space-y-4">
+            <div class="flex space-x-4">
+              <a href="https://linktr.ee/pixelpulsenews" target="_blank" class="hover:text-silverlake transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 1C12.5523 1 13 1.44772 13 2V7.58579L16.7929 3.79289C17.1834 3.40237 17.8166 3.40237 18.2071 3.79289C18.5976 4.18342 18.5976 4.81658 18.2071 5.20711L14.4142 9H20C20.5523 9 21 9.44771 21 10C21 10.5523 20.5523 11 20 11H14.4142L18.2071 14.7929C18.5976 15.1834 18.5976 15.8166 18.2071 16.2071C17.8166 16.5976 17.1834 16.5976 16.7929 16.2071L12 11.4142L7.20711 16.2071C6.81658 16.5976 6.18342 16.5976 5.79289 16.2071C5.40237 15.8166 5.40237 15.1834 5.79289 14.7929L9.58579 11H4C3.44772 11 3 10.5523 3 10C3 9.44771 3.44772 9 4 9H9.58579L5.79289 5.20711C5.40237 4.81658 5.40237 4.18342 5.79289 3.79289C6.18342 3.40237 6.81658 3.40237 7.20711 3.79289L11 7.58579V2C11 1.44772 11.4477 1 12 1Z"/>
+                  <path d="M13 15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V15Z"/>
+                </svg>
+              </a>
+              <a href="mailto:pixelpulsenewsletterr@gmail.com" class="hover:text-silverlake transition duration-300">
+                <i class="fi-xwsuxl-envelope-solid"></i>
+              </a>
+              <a href="https://www.instagram.com/pixelpulsenews/" target="_blank" class="hover:text-silverlake transition duration-300">
+                <i class="fi-xnsuxl-instagram"></i>
+              </a>
+            </div>
+            <p class="text-gray-300">Connect with us on social media or drop us an email!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 mt-12 pt-8 text-center">
+        <p>&copy; 2025 Pixel Pulse. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
         });
       });
+    });
 
-      // Mobile menu toggle
-      document.addEventListener('DOMContentLoaded', () => {
-        const navbarMenu = document.getElementById('navbarMenu');
-        const navbarToggle = document.querySelector('.navbar-toggler');
-        
-        if (navbarToggle) {
-          navbarToggle.addEventListener('click', () => {
-            navbarMenu.classList.toggle('hidden');
-          });
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbarMenu = document.getElementById('navbarMenu');
+      const navbarToggle = document.querySelector('.navbar-toggler');
+      
+      if (navbarToggle) {
+        navbarToggle.addEventListener('click', () => {
+          navbarMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Close menu on window resize if open
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024 && !navbarMenu.classList.contains('hidden')) {
+          navbarMenu.classList.add('hidden');
         }
+      });
 
-        // Close menu on window resize if open
-        window.addEventListener('resize', () => {
-          if (window.innerWidth >= 1024 && !navbarMenu.classList.contains('hidden')) {
-            navbarMenu.classList.add('hidden');
+      // Reveal animations on scroll
+      const revealElements = document.querySelectorAll('.animate-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
           }
         });
-
-        // Reveal animations on scroll
-        const revealElements = document.querySelectorAll('.animate-slide-up');
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-            }
-          });
-        });
-
-        revealElements.forEach(element => {
-          element.style.opacity = '0';
-          element.style.transform = 'translateY(20px)';
-          element.style.transition = 'all 0.5s ease-out';
-          observer.observe(element);
-        });
       });
-    </script>
-  </body>
+
+      revealElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'all 0.5s ease-out';
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
 </html>

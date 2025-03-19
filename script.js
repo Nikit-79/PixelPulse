@@ -50,22 +50,22 @@ function displayFeaturedNewsletter(newsletter) {
         <div class="relative">
             <div class="relative w-full h-64 mb-6 overflow-hidden rounded-lg">
                 <img src="${newsletter.image}" alt="${newsletter.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
             </div>
             <div class="flex items-center justify-between mb-4">
-                <span class="text-sm text-textSecondary">${formatDate(newsletter.date)}</span>
-                <span class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-primary to-secondary rounded-full">${newsletter.category}</span>
+                <span class="text-sm text-silverlake">${formatDate(newsletter.date)}</span>
+                <span class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-chambray to-silverlake rounded-full">${newsletter.category}</span>
             </div>
-            <h3 class="text-2xl font-bold mb-4 text-textPrimary group-hover:text-primary transition-colors duration-300">${newsletter.title}</h3>
-            <p class="text-textSecondary mb-6 group-hover:text-textPrimary transition-colors duration-300">${newsletter.content}</p>
+            <h3 class="text-2xl font-bold mb-4 text-oxford-blue group-hover:text-chambray transition-colors duration-300">${newsletter.title}</h3>
+            <p class="text-silverlake mb-6 group-hover:text-oxford-blue transition-colors duration-300">${newsletter.content}</p>
             <div class="flex items-center justify-end">
-                <a href="${pdfUrl}" target="_blank" class="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300">
+                <a href="${pdfUrl}" target="_blank" class="inline-flex items-center text-chambray hover:text-silverlake transition-colors duration-300">
                     Read Full Newsletter <i class="fi-rr-arrow-right ml-2"></i>
                 </a>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
                 ${newsletter.tags.map(tag => `
-                    <span class="px-2 py-1 text-xs text-textSecondary bg-bgLight rounded-full hover:bg-primary hover:text-white transition-colors duration-300">${tag}</span>
+                    <span class="px-2 py-1 text-xs text-silverlake bg-platinum rounded-full hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
                 `).join('')}
             </div>
         </div>
@@ -138,7 +138,7 @@ async function loadResearchPapers() {
 
 // Display research papers with animations
 function displayResearchPapers(papers) {
-    const grid = document.getElementById('research-grid');
+    const grid = document.getElementById('research-cards');
     if (!grid) return;
 
     grid.innerHTML = papers.map((paper, index) => `
@@ -147,15 +147,15 @@ function displayResearchPapers(papers) {
              style="animation-delay: ${index * 0.1}s">
             <div class="p-6">
                 <div class="flex items-center mb-4">
-                    <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">${paper.category}</span>
-                    <span class="ml-4 text-textSecondary">${formatDate(paper.date)}</span>
+                    <span class="bg-chambray text-white text-sm px-3 py-1 rounded-full">${paper.category}</span>
+                    <span class="ml-4 text-silverlake">${formatDate(paper.date)}</span>
                 </div>
-                <h3 class="text-xl font-bold text-primary mb-2 hover:text-secondary transition-colors duration-300">${paper.title}</h3>
-                <p class="text-textPrimary mb-4">${paper.abstract}</p>
+                <h3 class="text-xl font-bold text-chambray mb-2 hover:text-silverlake transition-colors duration-300">${paper.title}</h3>
+                <p class="text-oxford-blue mb-4">${paper.abstract}</p>
                 <div class="flex flex-wrap gap-2">
                     ${paper.tags.map(tag => `
-                        <span class="text-xs text-textSecondary bg-bgLight px-2 py-1 rounded-full 
-                                   hover:bg-primary hover:text-white transition-colors duration-300">${tag}</span>
+                        <span class="text-xs text-silverlake bg-platinum px-2 py-1 rounded-full 
+                                   hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
                     `).join('')}
                 </div>
             </div>
@@ -167,13 +167,13 @@ function displayResearchPapers(papers) {
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             const category = button.dataset.category;
-            const filteredPapers = category === 'All' 
+            const filteredPapers = category === 'all' 
                 ? papers 
                 : papers.filter(paper => paper.category === category);
             
             // Update active state of filter buttons
-            filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white'));
-            button.classList.add('bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white');
+            filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white'));
+            button.classList.add('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white');
             
             // Re-render papers with animation
             displayResearchPapers(filteredPapers);
@@ -325,8 +325,8 @@ function displayFallbackContent() {
     if (featuredContent) {
         featuredContent.innerHTML = `
             <div class="text-center p-8">
-                <h3 class="text-xl font-bold mb-4 text-textPrimary">No Featured Newsletter Available</h3>
-                <p class="text-textSecondary">Please check back later for updates.</p>
+                <h3 class="text-xl font-bold mb-4 text-oxford-blue">No Featured Newsletter Available</h3>
+                <p class="text-silverlake">Please check back later for updates.</p>
             </div>
         `;
     }
@@ -370,4 +370,22 @@ function sendEmail(event) {
     
     // Clear the form
     document.getElementById('contact-form').reset();
+}
+
+function initializeResearch() {
+    // Load research papers
+    loadResearchPapers()
+        .catch(error => {
+            console.error('Error loading research papers:', error);
+            // Display empty state
+            const grid = document.getElementById('research-cards');
+            if (grid) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center p-8">
+                        <h3 class="text-xl font-bold mb-4 text-oxford-blue">No Research Papers Available</h3>
+                        <p class="text-silverlake">Please check back later for our upcoming research.</p>
+                    </div>
+                `;
+            }
+        });
 }
