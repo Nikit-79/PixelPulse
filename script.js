@@ -7,6 +7,8 @@ function openLink(url) {
 
 // Helper function to format date
 function formatDate(dateString) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
 }
@@ -240,10 +242,15 @@ function displayAllNewsletters(newsletters) {
         
         const readMoreLink = clone.querySelector('.read-more');
         readMoreLink.href = pdfUrl;
+
+        // Ensure each individual newsletter card opens the PDF
         readMoreLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            openLink(pdfUrl);
+            e.preventDefault();  // Prevent default link behavior
+            openLink(pdfUrl);    // Open the PDF URL in a new tab
         });
+
+        // Append the newsletter to the grid
+        grid.appendChild(clone);
 
         // // Add tags
         // const tagsContainer = clone.querySelector('.tags');
@@ -256,9 +263,11 @@ function displayAllNewsletters(newsletters) {
         //     }
         // });
 
-
-        grid.appendChild(clone);
     });
+
+    // Make the entire newsletter clickable
+    grid.style.cursor = 'pointer';
+    
 }
 
 function initializeNewsletters() {
