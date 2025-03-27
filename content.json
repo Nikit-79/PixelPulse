@@ -1,64 +1,41 @@
 {
   "newsletters": [
     {
-      "id": 1,
-      "title": "The Future of AI in Education",
-      "date": "2025-03-01",
-      "author": "Dr. Sarah Martinez",
-      "content": "In this month's newsletter, we explore how artificial intelligence is revolutionizing education. From personalized learning paths to intelligent tutoring systems, discover how AI is making education more accessible and effective for students worldwide.",
-      "image": "https://source.unsplash.com/random/800x600/?education,technology",
-      "category": "Technology",
-      "tags": ["AI", "Education", "Innovation"]
-    },
-    {
-      "id": 2,
-      "title": "Breaking Barriers in STEM",
-      "date": "2025-02-15",
-      "author": "Kate Anderson",
-      "content": "This issue highlights inspiring stories of underrepresented groups making significant contributions to STEM fields. Learn about initiatives promoting diversity and inclusion in science and technology, and how they're shaping the future of innovation.",
-      "image": "https://source.unsplash.com/random/800x600/?diversity,science",
-      "category": "Community",
-      "tags": ["Diversity", "STEM", "Inclusion"]
-    },
-    {
-      "id": 3,
-      "title": "Quantum Computing Breakthroughs",
-      "date": "2025-02-01",
-      "author": "Dr. James Chen",
-      "content": "Discover the latest advancements in quantum computing and their potential impact on various industries. From cryptography to drug discovery, explore how quantum computers are pushing the boundaries of what's possible.",
-      "image": "https://source.unsplash.com/random/800x600/?quantum,computer",
-      "category": "Technology",
-      "tags": ["Quantum Computing", "Innovation", "Research"]
-    },
+    "id": 1,
+    "image": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/blue-futuristic-networking-technology_53876-100679.avif?v=1739736072944",
+    "title": "Pixel Pulse Unplugged",
+    "content": "Winter Edition Volume #1",
+    "category": "Chemistry",
+    "date": "2025-01-26",
+    "link": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/Jan%20Issue%20%234.pdf?v=1741482179011"
+  },
+  {
+    "id": 2,
+    "image": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/iStock-1383963898.jpg?v=1739736190163",
+    "title": "Pixel Pulse Unplugged",
+    "content": "Winter Edition Volume #1",
+    "category": "Physics + Math",
+    "date": "2025-01-19",
+    "link": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/Jan%20Issue%20%233.pdf?v=1741482178249"
+  },
+  {
+    "id": 3,
+    "image": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/tech_neoncircuitboard_857021704_medium_lc5h05.jpeg?v=1740243794189",
+    "title": "Pixel Pulse Unplugged",
+    "content": "Winter Edition Volume #1",
+    "category": "Psychology",
+    "date": "2025-01-12",
+    "link": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/Jan%20Issue%20%232.pdf?v=1741482174119"
+  },
     {
       "id": 4,
-      "title": "Sustainable Technology Initiatives",
-      "date": "2025-01-15",
-      "author": "Emma Green",
-      "content": "Learn about cutting-edge technologies helping combat climate change and promote sustainability. From renewable energy innovations to eco-friendly computing, see how technology is leading the charge toward a greener future.",
-      "image": "https://source.unsplash.com/random/800x600/?sustainable,technology",
-      "category": "Environment",
-      "tags": ["Sustainability", "Green Tech", "Innovation"]
-    },
-    {
-      "id": 5,
-      "title": "The Rise of Biotechnology",
-      "date": "2025-01-01",
-      "author": "Dr. Michael Patel",
-      "content": "Explore the fascinating world of biotechnology and its applications in medicine, agriculture, and environmental conservation. Discover how genetic engineering and synthetic biology are revolutionizing various industries.",
-      "image": "https://source.unsplash.com/random/800x600/?biotechnology,science",
-      "category": "Science",
-      "tags": ["Biotech", "Medicine", "Innovation"]
-    },
-    {
-      "id": 6,
-      "title": "Women Leading Tech Innovation",
-      "date": "2024-12-15",
-      "author": "Lisa Rodriguez",
-      "content": "Meet the women who are leading groundbreaking technological innovations across different sectors. From AI research to space exploration, learn about their achievements and the impact they're making in the tech world.",
-      "image": "https://source.unsplash.com/random/800x600/?women,technology",
-      "category": "Community",
-      "tags": ["Women in Tech", "Leadership", "Innovation"]
+      "title": "Pixel Pulse Unplugged",
+      "date": "2025-01-05",
+      "content": "Winter Edition Volume #1",
+      "image": "",
+      "link": "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/Pixel%20Pulse%20Jan%20Issue%20%231.pdf?v=1741099102980",
+      "category": "",
+      "tags": [""]
     }
   ]
 } 
