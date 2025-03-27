@@ -95,11 +95,24 @@ function displayAllNewsletters(newsletters) {
         card.classList.add('animate-fade-in');
 
         // Set content
-        const pdfUrl = `newsletters/pdf/${newsletter.id}.pdf`;
+        const pdfUrl = `newsletters/pdf/${newsletter.link}.pdf`;
         const img = clone.querySelector('img');
-        img.src = newsletter.image;
-        img.alt = newsletter.title;
+        if (newsletter.image) {
+            img.src = newsletter.image;
+            img.alt = newsletter.title;
+        } else {
+            img.style.display = 'none';  // Hide the image if there's no source
+        }
 
+
+        const categoryElement = clone.querySelector('.category');
+        if (newsletter.category) {
+            categoryElement.textContent = newsletter.category;
+        } else {
+            categoryElement.style.display = 'none';  // Hide category if not available
+        }
+
+        
         clone.querySelector('.date').textContent = formatDate(newsletter.date);
         clone.querySelector('.category').textContent = newsletter.category;
         clone.querySelector('.title').textContent = newsletter.title;
@@ -115,11 +128,14 @@ function displayAllNewsletters(newsletters) {
         // Add tags
         const tagsContainer = clone.querySelector('.tags');
         newsletter.tags.forEach(tag => {
+            if (tag) {  // Check if tag is not empty
             const tagClone = tagTemplate.content.cloneNode(true);
             const tagSpan = tagClone.querySelector('span');
             tagSpan.textContent = tag;
             tagsContainer.appendChild(tagSpan);
+            }
         });
+
 
         grid.appendChild(clone);
     });
