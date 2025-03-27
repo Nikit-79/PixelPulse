@@ -17,6 +17,125 @@ function truncateText(text, maxLength) {
     return text.substr(0, maxLength) + '...';
 }
 
+
+// RESEARCH SECTION--------------------------------------------------
+// Load research papers with animations
+async function loadResearchPapers() {
+    try {
+        const response = await fetch('papers.json');
+        const papers = await response.json();
+        displayResearchPapers(papers);
+    } catch (error) {
+        console.error('Error loading research papers:', error);
+    }
+}
+
+// Display research papers with animations
+function displayResearchPapers(papers) {
+    const grid = document.getElementById('research-cards');
+    if (!grid) return;
+
+    grid.innerHTML = papers.map((paper, index) => `
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all duration-300 
+                    opacity-0 animate-fade-in"
+             style="animation-delay: ${index * 0.1}s">
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <span class="bg-chambray text-white text-sm px-3 py-1 rounded-full">${paper.category}</span>
+                    <span class="ml-4 text-silverlake">${formatDate(paper.date)}</span>
+                </div>
+                <h3 class="text-xl font-bold text-chambray mb-2 hover:text-silverlake transition-colors duration-300">${paper.title}</h3>
+                <p class="text-oxford-blue mb-4">${paper.abstract}</p>
+                <div class="flex flex-wrap gap-2">
+                    ${paper.tags.map(tag => `
+                        <span class="text-xs text-silverlake bg-platinum px-2 py-1 rounded-full 
+                                   hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    // Add filter functionality
+    const filterButtons = document.querySelectorAll('[data-category]');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            const filteredPapers = category === 'all' 
+                ? papers 
+                : papers.filter(paper => paper.category === category);
+            
+            // Update active state of filter buttons
+            filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white'));
+            button.classList.add('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white');
+            
+            // Re-render papers with animation
+            displayResearchPapers(filteredPapers);
+        });
+    });
+}
+
+
+
+// Add dynamic background effect
+function addDynamicBackground(element) {
+    element.addEventListener('mousemove', (e) => {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        element.style.setProperty('--mouse-x', `${x}px`);
+        element.style.setProperty('--mouse-y', `${y}px`);
+    });
+}
+
+// Initialize dynamic backgrounds
+document.addEventListener('DOMContentLoaded', () => {
+    // Add dynamic background to all sections
+    document.querySelectorAll('section').forEach(addDynamicBackground);
+
+    // Set primary color CSS variable
+    document.documentElement.style.setProperty('--color-primary', '#3e5c76');
+
+    // Initialize based on current page
+    const path = window.location.pathname;
+    
+    if (path.includes('newsletters.html')) {
+        initializeNewsletters();
+    } else if (path.includes('research.html')) {
+        initializeResearch();
+    } else {
+        initializeHome();
+    }
+
+    // Add smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add hover effect for navigation links
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            link.classList.add('animate-scale-pulse');
+        });
+        link.addEventListener('mouseleave', () => {
+            link.classList.remove('animate-scale-pulse');
+        });
+    });
+});
+
+
+
+// NEWSLETTER SECTION--------------------------------------------------------
 // Load and display newsletter content with animations
 async function loadNewsletterContent() {
     try {
@@ -141,118 +260,6 @@ function displayAllNewsletters(newsletters) {
     });
 }
 
-// Load research papers with animations
-async function loadResearchPapers() {
-    try {
-        const response = await fetch('papers.json');
-        const papers = await response.json();
-        displayResearchPapers(papers);
-    } catch (error) {
-        console.error('Error loading research papers:', error);
-    }
-}
-
-// Display research papers with animations
-function displayResearchPapers(papers) {
-    const grid = document.getElementById('research-cards');
-    if (!grid) return;
-
-    grid.innerHTML = papers.map((paper, index) => `
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all duration-300 
-                    opacity-0 animate-fade-in"
-             style="animation-delay: ${index * 0.1}s">
-            <div class="p-6">
-                <div class="flex items-center mb-4">
-                    <span class="bg-chambray text-white text-sm px-3 py-1 rounded-full">${paper.category}</span>
-                    <span class="ml-4 text-silverlake">${formatDate(paper.date)}</span>
-                </div>
-                <h3 class="text-xl font-bold text-chambray mb-2 hover:text-silverlake transition-colors duration-300">${paper.title}</h3>
-                <p class="text-oxford-blue mb-4">${paper.abstract}</p>
-                <div class="flex flex-wrap gap-2">
-                    ${paper.tags.map(tag => `
-                        <span class="text-xs text-silverlake bg-platinum px-2 py-1 rounded-full 
-                                   hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `).join('');
-
-    // Add filter functionality
-    const filterButtons = document.querySelectorAll('[data-category]');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const category = button.dataset.category;
-            const filteredPapers = category === 'all' 
-                ? papers 
-                : papers.filter(paper => paper.category === category);
-            
-            // Update active state of filter buttons
-            filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white'));
-            button.classList.add('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white');
-            
-            // Re-render papers with animation
-            displayResearchPapers(filteredPapers);
-        });
-    });
-}
-
-// Add dynamic background effect
-function addDynamicBackground(element) {
-    element.addEventListener('mousemove', (e) => {
-        const rect = element.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        element.style.setProperty('--mouse-x', `${x}px`);
-        element.style.setProperty('--mouse-y', `${y}px`);
-    });
-}
-
-// Initialize dynamic backgrounds
-document.addEventListener('DOMContentLoaded', () => {
-    // Add dynamic background to all sections
-    document.querySelectorAll('section').forEach(addDynamicBackground);
-
-    // Set primary color CSS variable
-    document.documentElement.style.setProperty('--color-primary', '#3e5c76');
-
-    // Initialize based on current page
-    const path = window.location.pathname;
-    
-    if (path.includes('newsletters.html')) {
-        initializeNewsletters();
-    } else if (path.includes('research.html')) {
-        initializeResearch();
-    } else {
-        initializeHome();
-    }
-
-    // Add smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Add hover effect for navigation links
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            link.classList.add('animate-scale-pulse');
-        });
-        link.addEventListener('mouseleave', () => {
-            link.classList.remove('animate-scale-pulse');
-        });
-    });
-});
-
 function initializeNewsletters() {
     loadNewsletterContent()
         .then(newsletters => {
@@ -265,6 +272,29 @@ function initializeNewsletters() {
             console.error('Error loading newsletters:', error);
             displayFallbackContent();
         });
+}
+
+function displayFallbackContent() {
+    const featuredContent = document.getElementById('featured-content');
+    const grid = document.getElementById('newsletters-grid');
+
+    if (featuredContent) {
+        featuredContent.innerHTML = `
+            <div class="text-center p-8">
+                <h3 class="text-xl font-bold mb-4 text-oxford-blue">No Featured Newsletter Available</h3>
+                <p class="text-silverlake">Please check back later for updates.</p>
+            </div>
+        `;
+    }
+
+    if (grid) {
+        grid.innerHTML = `
+            <div class="col-span-full text-center p-8">
+                <h3 class="text-xl font-bold mb-4 text-white">No Newsletters Available</h3>
+                <p class="text-gray-300">Please check back later for updates.</p>
+            </div>
+        `;
+    }
 }
 
 function initializeHome() {
@@ -308,6 +338,8 @@ function initializeHome() {
     counters.forEach(counter => observer.observe(counter));
 }
 
+
+
 function animateCounter(element, target) {
     let current = 0;
     const increment = target / 100;
@@ -334,28 +366,7 @@ function isValidUrl(string) {
     }
 }
 
-function displayFallbackContent() {
-    const featuredContent = document.getElementById('featured-content');
-    const grid = document.getElementById('newsletters-grid');
 
-    if (featuredContent) {
-        featuredContent.innerHTML = `
-            <div class="text-center p-8">
-                <h3 class="text-xl font-bold mb-4 text-oxford-blue">No Featured Newsletter Available</h3>
-                <p class="text-silverlake">Please check back later for updates.</p>
-            </div>
-        `;
-    }
-
-    if (grid) {
-        grid.innerHTML = `
-            <div class="col-span-full text-center p-8">
-                <h3 class="text-xl font-bold mb-4 text-white">No Newsletters Available</h3>
-                <p class="text-gray-300">Please check back later for updates.</p>
-            </div>
-        `;
-    }
-}
 
 // Custom toggle script
 document.addEventListener('DOMContentLoaded', function () {
