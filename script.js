@@ -183,9 +183,10 @@ function displayFeaturedNewsletter(newsletter) {
                 </a>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
-                ${newsletter.tags.map(tag => `
-                    <span class="px-2 py-1 text-xs text-silverlake bg-platinum rounded-full hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
-                `).join('')}
+                ${Array.isArray(newsletter.tags) && newsletter.tags.length > 0 ? 
+                     newsletter.tags.map(tag => `
+                         <span class="px-2 py-1 text-xs text-silverlake bg-platinum rounded-full hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
+                     `).join('') : ''}
             </div>
         </div>
     `;
@@ -278,7 +279,7 @@ function displayFallbackContent() {
     const featuredContent = document.getElementById('featured-content');
     const grid = document.getElementById('newsletters-grid');
 
-    if (featuredContent) {
+    if (!featuredContent) {
         featuredContent.innerHTML = `
             <div class="text-center p-8">
                 <h3 class="text-xl font-bold mb-4 text-oxford-blue">No Featured Newsletter Available</h3>
@@ -287,7 +288,7 @@ function displayFallbackContent() {
         `;
     }
 
-    if (grid) {
+    if (!grid) {
         grid.innerHTML = `
             <div class="col-span-full text-center p-8">
                 <h3 class="text-xl font-bold mb-4 text-white">No Newsletters Available</h3>
