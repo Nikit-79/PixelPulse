@@ -180,7 +180,7 @@ function displayFeaturedNewsletter(newsletter) {
             <h3 class="text-2xl font-bold mb-4 text-oxford-blue group-hover:text-chambray transition-colors duration-300">${newsletter.title}</h3>
             <p class="text-silverlake mb-6 group-hover:text-oxford-blue transition-colors duration-300">${newsletter.content}</p>
             <div class="flex items-center justify-end">
-                <a href="${newsletter.link}" target="_blank" class="inline-flex items-center text-chambray hover:text-silverlake transition-colors duration-300">
+                <a href="${newsletter.link}" target="_blank" class="read-more inline-block px-8 py-3 bg-gradient-to-r from-chambray to-silverlake text-white rounded-full font-semibold transform hover:scale-105 transition-colors duration-300">
                     Read Full Newsletter <i class="fi-rr-arrow-right ml-2"></i>
                 </a>
             </div>
