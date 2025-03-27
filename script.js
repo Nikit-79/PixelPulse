@@ -163,7 +163,7 @@ function displayFeaturedNewsletter(newsletter) {
     const featuredContent = document.getElementById('featured-content');
     if (!featuredContent) return;
 
-    const pdfUrl = `newsletters/pdf/${newsletter.id}.pdf`;
+    const pdfUrl = `newsletters/pdf/${newsletter.link}.pdf`;
     
     featuredContent.innerHTML = `
         <div class="relative">
