@@ -178,7 +178,7 @@ function displayFeaturedNewsletter(newsletter) {
             <h3 class="text-2xl font-bold mb-4 text-oxford-blue group-hover:text-chambray transition-colors duration-300">${newsletter.title}</h3>
             <p class="text-silverlake mb-6 group-hover:text-oxford-blue transition-colors duration-300">${newsletter.content}</p>
             <div class="flex items-center justify-end">
-                <a href="${pdfUrl}" target="_blank" class="inline-flex items-center text-chambray hover:text-silverlake transition-colors duration-300">
+                <a href="${newsletter.link}" target="_blank" class="inline-flex items-center text-chambray hover:text-silverlake transition-colors duration-300">
                     Read Full Newsletter <i class="fi-rr-arrow-right ml-2"></i>
                 </a>
             </div>
@@ -245,16 +245,16 @@ function displayAllNewsletters(newsletters) {
             openLink(pdfUrl);
         });
 
-        // Add tags
-        const tagsContainer = clone.querySelector('.tags');
-        newsletter.tags.forEach(tag => {
-            if (tag) {  // Check if tag is not empty
-            const tagClone = tagTemplate.content.cloneNode(true);
-            const tagSpan = tagClone.querySelector('span');
-            tagSpan.textContent = tag;
-            tagsContainer.appendChild(tagSpan);
-            }
-        });
+        // // Add tags
+        // const tagsContainer = clone.querySelector('.tags');
+        // newsletter.tags.forEach(tag => {
+        //     if (tag) {  // Check if tag is not empty
+        //     const tagClone = tagTemplate.content.cloneNode(true);
+        //     const tagSpan = tagClone.querySelector('span');
+        //     tagSpan.textContent = tag;
+        //     tagsContainer.appendChild(tagSpan);
+        //     }
+        // });
 
 
         grid.appendChild(clone);
