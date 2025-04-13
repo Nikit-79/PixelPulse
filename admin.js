@@ -936,19 +936,26 @@ async function updateTeamPositions(listElement) {
     });
     
     try {
-        // Prepare batch update
-        const updates = teamItems.map((item, index) => ({
-            id: item.dataset.itemId,
-            position: index + 1
-        }));
-        
-        // Send batch update to Supabase
-        const { error } = await supabaseClient
-            .from('team_members')
-            .upsert(updates, { onConflict: 'id' });
+        // Process each update individually instead of batch upsert
+        const updatePromises = teamItems.map(async (item, index) => {
+            const id = item.dataset.itemId;
+            const position = index + 1;
             
-        if (error) {
-            console.error('Error updating team positions:', error);
+            // Use update instead of upsert
+            return supabaseClient
+                .from('team_members')
+                .update({ position: position })
+                .eq('id', id);
+        });
+        
+        // Wait for all updates to complete
+        const results = await Promise.all(updatePromises);
+        
+        // Check for errors
+        const errors = results.filter(result => result.error);
+        
+        if (errors.length > 0) {
+            console.error('Error updating team positions:', errors[0].error);
             alert('Failed to save new team order. Please try again.');
         } else {
             console.log('Team positions updated successfully');
