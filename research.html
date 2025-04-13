@@ -131,6 +131,9 @@
       }
     </script>
 
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <!-- Icons -->
     <script defer src="https://friconix.com/cdn/friconix.js"></script>
 
@@ -189,7 +192,7 @@
       <!-- Research Section -->
       <section class="container mx-auto px-4 py-16">
         <!-- Filter Buttons -->
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <div id="research-filter-buttons" class="flex flex-wrap justify-center gap-4 mb-12">
           <button class="bg-transparent border-2 border-chambray text-chambray px-6 py-2 rounded-full hover:bg-gradient-to-r hover:from-chambray hover:to-silverlake hover:text-white transition duration-300 active" data-category="all">
             All
           </button>
@@ -231,6 +234,7 @@
               <li><a href="team.html" class="hover:text-silverlake transition duration-300">Our Team</a></li>
               <li><a href="newsletters.html" class="hover:text-silverlake transition duration-300">Newsletters</a></li>
               <li><a href="research.html" class="hover:text-silverlake transition duration-300">Research</a></li>
+              <li><a href="admin.html" class="text-xs text-gray-400 hover:text-silverlake transition duration-300" target="_blank">Admin Login</a></li>
             </ul>
           </div>
 
@@ -286,18 +290,16 @@
           }
         });
 
-        // Filter button functionality
+        // REMOVE FILTER BUTTON LOGIC FROM HERE - Handled by script.js
+        /*
         const filterButtons = document.querySelectorAll('[data-category]');
         filterButtons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove active class from all buttons
             filterButtons.forEach(btn => btn.classList.remove('active', 'bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white'));
-            // Add active class to clicked button
             button.classList.add('active', 'bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white');
-            
-            // Filter functionality will be handled by script.js
           });
         });
+        */
       });
     </script>
   </body>

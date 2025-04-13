@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - PixelPulse</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Add any custom styles here if needed */
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto mt-10 p-5">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Admin Portal</h1>
+
+        <!-- Login Section -->
+        <div id="login-section" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-700">Admin Login</h2>
+            <p class="text-sm text-gray-600 mb-4">Enter your admin email address to receive a secure login link.</p>
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Email:</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button id="login-button" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Send Login Link</button>
+            <p id="login-message" class="text-sm mt-2"></p>
+        </div>
+
+        <!-- Admin Content Section (Hidden by default) -->
+        <div id="admin-content" class="hidden mt-10">
+            <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Manage Content</h2>
+            <button id="logout-button" class="absolute top-5 right-5 bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Logout</button>
+
+            <!-- Research Papers Form -->
+            <div class="bg-white p-8 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-700">Add Research Paper</h3>
+                <form id="research-form">
+                    <div class="mb-4">
+                        <label for="research-title" class="block text-sm font-medium text-gray-600 mb-1">Title:</label>
+                        <input type="text" id="research-title" name="title" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="research-description" class="block text-sm font-medium text-gray-600 mb-1">Description:</label>
+                        <textarea id="research-description" name="description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="research-pdf" class="block text-sm font-medium text-gray-600 mb-1">PDF File:</label>
+                        <div id="current-research-pdf" class="text-xs text-gray-600 mb-1 hidden"></div>
+                        <input type="file" id="research-pdf" name="pdf" accept=".pdf" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <div class="mb-4">
+                        <label for="research-image" class="block text-sm font-medium text-gray-600 mb-1">Preview Image (PNG):</label>
+                        <div id="current-research-image" class="text-xs text-gray-600 mb-1 hidden"></div>
+                        <input type="file" id="research-image" name="image" accept=".png" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Upload Research Paper</button>
+                    <button type="button" id="cancel-edit-research" class="hidden w-full mt-2 bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Cancel Edit / Add New</button>
+                    <p id="research-message" class="text-green-500 text-sm mt-2"></p>
+                </form>
+                <!-- List Container for Research Papers -->
+                <div class="mt-6 border-t pt-4">
+                    <h4 class="text-lg font-semibold mb-2 text-gray-600">Existing Research Papers:</h4>
+                    <div id="admin-research-list" class="space-y-2">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Newsletters Form -->
+            <div class="bg-white p-8 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-700">Add Newsletter</h3>
+                <form id="newsletter-form">
+                    <div class="mb-4">
+                        <label for="newsletter-title" class="block text-sm font-medium text-gray-600 mb-1">Title:</label>
+                        <input type="text" id="newsletter-title" name="title" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="newsletter-description" class="block text-sm font-medium text-gray-600 mb-1">Description:</label>
+                        <textarea id="newsletter-description" name="description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="newsletter-pdf" class="block text-sm font-medium text-gray-600 mb-1">PDF File:</label>
+                        <div id="current-newsletter-pdf" class="text-xs text-gray-600 mb-1 hidden"></div>
+                        <input type="file" id="newsletter-pdf" name="pdf" accept=".pdf" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <div class="mb-4">
+                        <label for="newsletter-image" class="block text-sm font-medium text-gray-600 mb-1">Preview Image (PNG):</label>
+                        <div id="current-newsletter-image" class="text-xs text-gray-600 mb-1 hidden"></div>
+                        <input type="file" id="newsletter-image" name="image" accept=".png" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Upload Newsletter</button>
+                    <button type="button" id="cancel-edit-newsletter" class="hidden w-full mt-2 bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Cancel Edit / Add New</button>
+                    <p id="newsletter-message" class="text-green-500 text-sm mt-2"></p>
+                </form>
+                <!-- List Container for Newsletters -->
+                <div class="mt-6 border-t pt-4">
+                    <h4 class="text-lg font-semibold mb-2 text-gray-600">Existing Newsletters:</h4>
+                    <div id="admin-newsletter-list" class="space-y-2">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Team Members Form -->
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4 text-gray-700">Add Team Member</h3>
+                <form id="team-form">
+                    <div class="mb-4">
+                        <label for="team-name" class="block text-sm font-medium text-gray-600 mb-1">Name:</label>
+                        <input type="text" id="team-name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="team-role" class="block text-sm font-medium text-gray-600 mb-1">Role:</label>
+                        <input type="text" id="team-role" name="role" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="team-description" class="block text-sm font-medium text-gray-600 mb-1">Description:</label>
+                        <textarea id="team-description" name="description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="team-image" class="block text-sm font-medium text-gray-600 mb-1">Image:</label>
+                        <div id="current-team-image" class="text-xs text-gray-600 mb-1 hidden"></div>
+                        <input type="file" id="team-image" name="image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Add Team Member</button>
+                    <button type="button" id="cancel-edit-team" class="hidden w-full mt-2 bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Cancel Edit / Add New</button>
+                    <p id="team-message" class="text-green-500 text-sm mt-2"></p>
+                </form>
+                <!-- List Container for Team Members -->
+                <div class="mt-6 border-t pt-4">
+                    <h4 class="text-lg font-semibold mb-2 text-gray-600">Existing Team Members:</h4>
+                    <div id="admin-team-list" class="space-y-2">Loading...</div>
+                </div>
+            </div>
+
+        </div> <!-- End Admin Content -->
+
+    </div> <!-- End Container -->
+
+    <script src="admin.js"></script>
+</body>
+</html> 

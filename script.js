@@ -1,3 +1,14 @@
+// --- Supabase Client Initialization ---
+const { createClient } = supabase; // Assumes Supabase is loaded globally via CDN
+const SUPABASE_URL = 'https://dzoxjkfkahmyylvgiibw.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6b3hqa2ZrYWhteXlsdmdpaWJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzgxNTEsImV4cCI6MjA1OTYxNDE1MX0.fbm7FP-ua9oaY2ULYRwGyS5j9TLp53u4XmVIvnJywR0'; 
+let supabaseClient = null;
+if (SUPABASE_URL && SUPABASE_ANON_KEY && typeof createClient === 'function') {
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} else {
+    console.error('Supabase client not initialized. Check credentials and CDN script inclusion.');
+}
+
 // Helper function to open links in new tab
 function openLink(url) {
     if (url && isValidUrl(url)) {
@@ -21,63 +32,134 @@ function truncateText(text, maxLength) {
 
 
 // RESEARCH SECTION--------------------------------------------------
-// Load research papers with animations
+let allResearchPapers = []; // Store all fetched papers for filtering
+
+// Load research papers from Supabase
 async function loadResearchPapers() {
+    if (!supabaseClient) {
+        console.error('Supabase client is not available for research papers.');
+        displayResearchPapers([]); // Display empty state or error
+        return;
+    }
+    console.log('loadResearchPapers called.');
+    const grid = document.getElementById('research-cards');
+    if (grid) grid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading research papers...</p>';
+
     try {
-        const response = await fetch('papers.json');
-        const papers = await response.json();
-        displayResearchPapers(papers);
-    } catch (error) {
-        console.error('Error loading research papers:', error);
+        console.log("Fetching research papers from Supabase...");
+        const { data, error } = await supabaseClient
+            .from('research_papers')
+            .select('*')
+            .order('uploaded_at', { ascending: false }); // Fetch newest first
+
+        if (error) {
+            console.error('Supabase fetch error (research_papers):', error);
+            allResearchPapers = [];
+            if (grid) grid.innerHTML = '<p class="text-center text-red-500 col-span-full">Error loading papers.</p>';
+        } else {
+            console.log("Fetched research papers:", data);
+            allResearchPapers = data || [];
+            displayResearchPapers(allResearchPapers); // Display all initially
+            setupResearchFilters(); // Setup filters after data is loaded
+        }
+    } catch (fetchError) {
+        console.error('Exception loading research papers:', fetchError);
+        allResearchPapers = [];
+        if (grid) grid.innerHTML = '<p class="text-center text-red-500 col-span-full">An unexpected error occurred.</p>';
     }
 }
 
 // Display research papers with animations
-function displayResearchPapers(papers) {
+function displayResearchPapers(papersToDisplay) {
     const grid = document.getElementById('research-cards');
     if (!grid) return;
 
-    grid.innerHTML = papers.map((paper, index) => `
+    if (!papersToDisplay || papersToDisplay.length === 0) {
+        grid.innerHTML = '<p class="text-center text-gray-600 col-span-full">No research papers found.</p>';
+        return;
+    }
+
+    grid.innerHTML = papersToDisplay.map((paper, index) => {
+        const pdfUrl = paper.file_url;
+        const imageUrl = paper.image_url;
+        // Assuming no category/tags in the current schema, add later if needed
+        return `
         <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all duration-300 
-                    opacity-0 animate-fade-in"
-             style="animation-delay: ${index * 0.1}s">
+                    cursor-pointer" 
+             onclick="openLink('${pdfUrl}')">
+            ${imageUrl ? `
+            <div class="relative w-full h-48"> 
+                 <img src="${imageUrl}" alt="${paper.title}" class="w-full h-full object-cover" onerror="this.style.display='none'"> 
+            </div>` : ''}
             <div class="p-6">
-                <div class="flex items-center mb-4">
-                    <span class="bg-chambray text-white text-sm px-3 py-1 rounded-full">${paper.category}</span>
-                    <span class="ml-4 text-silverlake">${formatDate(paper.date)}</span>
-                </div>
-                <h3 class="text-xl font-bold text-chambray mb-2 hover:text-silverlake transition-colors duration-300">${paper.title}</h3>
-                <p class="text-oxford-blue mb-4">${paper.abstract}</p>
-                <div class="flex flex-wrap gap-2">
-                    ${paper.tags.map(tag => `
-                        <span class="text-xs text-silverlake bg-platinum px-2 py-1 rounded-full 
-                                   hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
-                    `).join('')}
-                </div>
+                <!-- <span class="bg-chambray text-white text-sm px-3 py-1 rounded-full">CATEGORY</span> -->
+                <span class="ml-1 text-silverlake text-sm">${formatDate(paper.uploaded_at)}</span>
+                <h3 class="text-xl font-bold text-chambray mt-2 mb-2 hover:text-silverlake transition-colors duration-300">${paper.title}</h3>
+                ${paper.description ? `<p class="text-oxford-blue mb-4 text-sm">${truncateText(paper.description, 150)}</p>` : ''}
+                <!-- <div class="flex flex-wrap gap-2">
+                    <span class="text-xs text-silverlake bg-platinum px-2 py-1 rounded-full 
+                               hover:bg-chambray hover:text-white transition-colors duration-300">TAG</span>
+                </div> -->
+                 <div class="text-right mt-2">
+                     <span class="read-more text-sm font-semibold text-chambray hover:text-silverlake transition-colors duration-300">
+                         View Paper <i class="fi-rr-arrow-right ml-1"></i>
+                     </span>
+                 </div>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
+}
 
-    // Add filter functionality
-    const filterButtons = document.querySelectorAll('[data-category]');
+// Setup filter button listeners
+function setupResearchFilters() {
+    console.log("Setting up research filters...");
+    const filterButtonContainer = document.getElementById('research-filter-buttons');
+    if (!filterButtonContainer) {
+        console.error("Filter button container #research-filter-buttons not found.");
+        return;
+    }
+    const filterButtons = filterButtonContainer.querySelectorAll('button[data-category]'); 
+    if (!filterButtons || filterButtons.length === 0) {
+        console.warn("No filter buttons found within #research-filter-buttons.");
+        return;
+    }
+    console.log(`Found ${filterButtons.length} filter buttons.`);
+
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             const category = button.dataset.category;
-            const filteredPapers = category === 'all' 
-                ? papers 
-                : papers.filter(paper => paper.category === category);
+            console.log(`Filter button clicked: ${category}`);
             
-            // Update active state of filter buttons
-            filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white'));
-            button.classList.add('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white');
+            // Update active state
+            filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white', 'active'));
+            button.classList.add('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white', 'active');
+
+            // Filter the papers (CASE-INSENSITIVE)
+            // NOTE: Assumes category is stored in the 'description' or a future 'category' field.
+            //       Modify this logic if you add a dedicated category column.
+            console.log("Filtering papers...");
+            const filteredPapers = category === 'all' 
+                ? allResearchPapers 
+                : allResearchPapers.filter(paper => 
+                    paper.description?.toLowerCase().includes(category.toLowerCase()) || 
+                    paper.title?.toLowerCase().includes(category.toLowerCase()) 
+                  );
+            console.log(`Found ${filteredPapers.length} papers for category '${category}'.`);
             
             // Re-render papers with animation
             displayResearchPapers(filteredPapers);
         });
     });
+
+    // Activate the 'all' button initially
+    const allButton = filterButtonContainer.querySelector('button[data-category="all"]');
+    if (allButton && !allButton.classList.contains('active')) {
+        console.log("Activating 'All' button initially.");
+        filterButtons.forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white', 'active'));
+        allButton.classList.add('bg-gradient-to-r', 'from-chambray', 'to-silverlake', 'text-white', 'active');
+    }
 }
-
-
 
 // Add dynamic background effect
 function addDynamicBackground(element) {
@@ -93,6 +175,20 @@ function addDynamicBackground(element) {
 
 // Initialize dynamic backgrounds
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed.");
+
+    // Initialize Supabase client check
+    if (!supabaseClient) {
+        console.error("Supabase client failed to initialize. Cannot load dynamic content.");
+        // Optionally display error messages in UI elements
+        displayFallbackContent('team-grid', 'Error: Cannot connect to database.');
+        displayFallbackContent('newsletters-grid', 'Error: Cannot connect to database.');
+        displayFallbackContent('featured-content', '');
+        displayFallbackContent('research-cards', 'Error: Cannot connect to database.');
+        return; // Stop further execution if client is missing
+    }
+    console.log("Supabase client appears initialized.");
+
     // Add dynamic background to all sections
     document.querySelectorAll('section').forEach(addDynamicBackground);
 
@@ -101,12 +197,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize based on current page
     const path = window.location.pathname;
+    console.log("Current path:", path);
     
     if (path.includes('newsletters.html')) {
+        console.log("Initializing Newsletters page...");
         initializeNewsletters();
     } else if (path.includes('research.html')) {
+        console.log("Initializing Research page...");
         initializeResearch();
+    } else if (path.includes('team.html')) {
+        // Team loading is handled by inline script in team.html
+        console.log("Team page detected (loading handled in team.html).");
     } else {
+         console.log("Initializing Home page...");
         initializeHome();
     }
 
@@ -138,173 +241,175 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // NEWSLETTER SECTION--------------------------------------------------------
-// Load and display newsletter content with animations
+// Load and display newsletter content with animations from Supabase
 async function loadNewsletterContent() {
+    if (!supabaseClient) {
+        console.error('Supabase client is not available for newsletters.');
+        displayFallbackContent('newsletters-grid'); // Use generic fallback
+        displayFallbackContent('featured-content');
+        return;
+    }
+    console.log('loadNewsletterContent called.');
     try {
-        const response = await fetch('content.json');
-        const data = await response.json();
-        const newsletters = data.newsletters;
+        console.log("Fetching newsletters from Supabase...");
+        const { data: newsletters, error } = await supabaseClient
+            .from('newsletters')
+            .select('*')
+            .order('uploaded_at', { ascending: false }); // Fetch newest first
 
-        // Sort newsletters by date (newest first)
-        newsletters.sort((a, b) => new Date(b.date) - new Date(a.date));
+        if (error) {
+            console.error('Supabase fetch error (newsletters):', error);
+            displayFallbackContent('newsletters-grid', 'Error loading newsletters.');
+            displayFallbackContent('featured-content', ''); // Clear featured if error
+            return;
+        }
+
+        console.log("Fetched newsletters:", newsletters);
+
+        if (!newsletters || newsletters.length === 0) {
+            console.log("No newsletters found in database.");
+            displayFallbackContent('newsletters-grid', 'No newsletters found.');
+            displayFallbackContent('featured-content', ''); // Clear featured if none found
+            return;
+        }
 
         // Display featured newsletter (latest)
         displayFeaturedNewsletter(newsletters[0]);
 
         // Display all newsletters with staggered animation
         displayAllNewsletters(newsletters.slice(1)); // Skip the featured one
-    } catch (error) {
-        console.error('Error loading newsletter content:', error);
-        // Display fallback content
-        displayFallbackContent();
+
+    } catch (fetchError) {
+        console.error('Exception loading newsletter content:', fetchError);
+        displayFallbackContent('newsletters-grid', 'An unexpected error occurred.');
+        displayFallbackContent('featured-content', ''); 
     }
 }
 
 // Display featured newsletter with animation
 function displayFeaturedNewsletter(newsletter) {
     const featuredContent = document.getElementById('featured-content');
-    if (!featuredContent) return;
+    if (!featuredContent || !newsletter) {
+        if (featuredContent) featuredContent.innerHTML = ''; // Clear if no newsletter
+        return;
+    }
 
-    const pdfUrl = `newsletters/pdf/${newsletter.link}.pdf`;
-    
+    // Use file_url directly, assuming it's the public PDF URL
+    const pdfUrl = newsletter.file_url; 
+    const imageUrl = newsletter.image_url; // Preview image URL
+
     featuredContent.innerHTML = `
-        <div class="relative">
+        <div class="relative group cursor-pointer" onclick="openLink('${pdfUrl}')"> <!-- Add group and cursor -->
             <div class="relative w-full h-64 mb-6 overflow-hidden rounded-lg">
-                <img src="${newsletter.image}" alt="${newsletter.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
+                <img src="${imageUrl || 'placeholder.png'}" 
+                     alt="${newsletter.title}" 
+                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" 
+                     onerror="this.onerror=null;this.src='placeholder.png';" />
                 <div class="absolute inset-0 bg-gradient-to-br from-chambray/20 to-silverlake/20 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
             </div>
             <div class="flex items-center justify-between mb-4">
-                <span class="text-sm text-silverlake">${formatDate(newsletter.date)}</span>
-                <span class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-chambray to-silverlake rounded-full">${newsletter.category}</span>
+                <!-- Use uploaded_at for date, format it -->
+                <span class="text-sm text-silverlake">${formatDate(newsletter.uploaded_at)}</span>
+                <!-- <span class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-chambray to-silverlake rounded-full">CATEGORY_PLACEHOLDER</span> --> <!-- Add category later if needed -->
             </div>
             <h3 class="text-2xl font-bold mb-4 text-oxford-blue group-hover:text-chambray transition-colors duration-300">${newsletter.title}</h3>
-            <p class="text-silverlake mb-6 group-hover:text-oxford-blue transition-colors duration-300">${newsletter.content}</p>
+            ${newsletter.description ? `<p class="text-silverlake mb-6 group-hover:text-oxford-blue transition-colors duration-300">${newsletter.description}</p>` : ''}
             <div class="flex items-center justify-end">
-                <a href="${newsletter.link}" target="_blank" class="read-more inline-block px-8 py-3 bg-gradient-to-r from-chambray to-silverlake text-white rounded-full font-semibold transform hover:scale-105 transition-colors duration-300">
-                    Read Full Newsletter <i class="fi-rr-arrow-right ml-2"></i>
-                </a>
+                <span class="read-more inline-block px-8 py-3 bg-gradient-to-r from-chambray to-silverlake text-white rounded-full font-semibold transform hover:scale-105 transition-transform duration-300">
+                    View Newsletter <i class="fi-rr-arrow-right ml-2"></i>
+                </span>
             </div>
-            <div class="flex flex-wrap gap-2 mt-4">
+            <!-- Add tags later if schema supports it -->
+            <!-- <div class="flex flex-wrap gap-2 mt-4">
                 ${Array.isArray(newsletter.tags) && newsletter.tags.length > 0 ? 
                      newsletter.tags.map(tag => `
                          <span class="px-2 py-1 text-xs text-silverlake bg-platinum rounded-full hover:bg-chambray hover:text-white transition-colors duration-300">${tag}</span>
                      `).join('') : ''}
-            </div>
+            </div> -->
         </div>
     `;
-
-    // Make the entire featured newsletter clickable
-    featuredContent.style.cursor = 'pointer';
-    featuredContent.addEventListener('click', () => openLink(pdfUrl));
 }
 
 // Display all newsletters with staggered animation
 function displayAllNewsletters(newsletters) {
     const grid = document.getElementById('newsletters-grid');
     const template = document.getElementById('newsletter-card-template');
-    const tagTemplate = document.getElementById('tag-template');
+    // const tagTemplate = document.getElementById('tag-template'); // Keep if tags are added later
     
-    if (!grid || !template || !tagTemplate) return;
+    if (!grid || !template || !newsletters) return;
 
-    grid.innerHTML = '';
+    grid.innerHTML = ''; // Clear previous content
+
+    if (newsletters.length === 0) {
+        grid.innerHTML = '<p class="text-center text-gray-400 col-span-full">No other newsletters found.</p>';
+        return;
+    }
 
     newsletters.forEach((newsletter, index) => {
         const clone = template.content.cloneNode(true);
         const card = clone.querySelector('.group');
         
-        // Add staggered animation delay
-        card.style.animationDelay = `${index * 0.1}s`;
-        card.classList.add('animate-fade-in');
+        // Remove staggered animation delay and fade-in class
+        // card.style.animationDelay = `${index * 0.1}s`;
+        // card.classList.add('animate-fade-in', 'opacity-0'); // REMOVE THIS LINE
 
         // Set content
-        const pdfUrl = `newsletters/pdf/${newsletter.link}.pdf`;
+        const pdfUrl = newsletter.file_url;
+        const imageUrl = newsletter.image_url;
         const img = clone.querySelector('img');
-        if (newsletter.image) {
-            img.src = newsletter.image;
+        if (imageUrl) {
+            img.src = imageUrl;
             img.alt = newsletter.title;
+            img.onerror = function() { this.onerror=null; this.src='placeholder.png'; };
         } else {
-            img.style.display = 'none';  // Hide the image if there's no source
+            // Maybe hide the image container or use a default
+             img.src = 'placeholder.png';
+             img.alt = 'Placeholder';
+            // img.style.display = 'none'; 
         }
 
-
-        const categoryElement = clone.querySelector('.category');
-        if (newsletter.category) {
-            categoryElement.textContent = newsletter.category;
-        } else {
-            categoryElement.style.display = 'none';  // Hide category if not available
-        }
-
+        const dateElement = clone.querySelector('.date');
+        if (dateElement) dateElement.textContent = formatDate(newsletter.uploaded_at);
         
-        clone.querySelector('.date').textContent = formatDate(newsletter.date);
-        clone.querySelector('.category').textContent = newsletter.category;
-        clone.querySelector('.title').textContent = newsletter.title;
-        clone.querySelector('.content').textContent = truncateText(newsletter.content, 150);
+        // Hide category for now, or add data later
+        const categoryElement = clone.querySelector('.category');
+        if (categoryElement) categoryElement.style.display = 'none';
+
+        const titleElement = clone.querySelector('.title');
+        if (titleElement) titleElement.textContent = newsletter.title;
+        
+        const contentElement = clone.querySelector('.content');
+        if (contentElement) contentElement.textContent = truncateText(newsletter.description || '', 100); // Shorten description
         
         const readMoreLink = clone.querySelector('.read-more');
-        readMoreLink.href = pdfUrl;
+        if(readMoreLink) {
+            // Make card clickable instead of just the button
+             readMoreLink.parentElement.parentElement.parentElement.style.cursor = 'pointer';
+             readMoreLink.parentElement.parentElement.parentElement.onclick = () => openLink(pdfUrl);
+            // Remove href from button itself if card is clickable
+            readMoreLink.removeAttribute('href'); 
+        }
 
-        // Ensure each individual newsletter card opens the PDF
-        readMoreLink.addEventListener('click', (e) => {
-            e.preventDefault();  // Prevent default link behavior
-            openLink(pdfUrl);    // Open the PDF URL in a new tab
-        });
-
-        // Append the newsletter to the grid
-        grid.appendChild(clone);
-
-        // // Add tags
+        // Handle tags later if needed
         // const tagsContainer = clone.querySelector('.tags');
-        // newsletter.tags.forEach(tag => {
-        //     if (tag) {  // Check if tag is not empty
-        //     const tagClone = tagTemplate.content.cloneNode(true);
-        //     const tagSpan = tagClone.querySelector('span');
-        //     tagSpan.textContent = tag;
-        //     tagsContainer.appendChild(tagSpan);
-        //     }
-        // });
+        // if (tagsContainer) tagsContainer.innerHTML = ''; // Clear existing tags
 
+        grid.appendChild(clone);
     });
-
-    // Make the entire newsletter clickable
-    grid.style.cursor = 'pointer';
-    
 }
 
+// Modified to accept ID and message
+function displayFallbackContent(elementId, message = 'Could not load content.') {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.innerHTML = `<p class="text-center text-gray-400 p-4">${message}</p>`;
+    }
+}
+
+
+// Initialize specific page content
 function initializeNewsletters() {
-    loadNewsletterContent()
-        .then(newsletters => {
-            if (newsletters && newsletters.length > 0) {
-                displayFeaturedNewsletter(newsletters[0]);
-                displayAllNewsletters(newsletters);
-            }
-        })
-        .catch(error => {
-            console.error('Error loading newsletters:', error);
-            displayFallbackContent();
-        });
-}
-
-function displayFallbackContent() {
-    const featuredContent = document.getElementById('featured-content');
-    const grid = document.getElementById('newsletters-grid');
-
-    if (!featuredContent) {
-        featuredContent.innerHTML = `
-            <div class="text-center p-8">
-                <h3 class="text-xl font-bold mb-4 text-oxford-blue">No Featured Newsletter Available</h3>
-                <p class="text-silverlake">Please check back later for updates.</p>
-            </div>
-        `;
-    }
-
-    if (!grid) {
-        grid.innerHTML = `
-            <div class="col-span-full text-center p-8">
-                <h3 class="text-xl font-bold mb-4 text-white">No Newsletters Available</h3>
-                <p class="text-gray-300">Please check back later for updates.</p>
-            </div>
-        `;
-    }
+    loadNewsletterContent(); // Call the updated function
 }
 
 function initializeHome() {

@@ -131,6 +131,9 @@
       }
     </script>
 
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <!-- Icons -->
     <script defer src="https://friconix.com/cdn/friconix.js"></script>
   </head>
@@ -181,122 +184,8 @@
             Meet the passionate individuals behind Pixel Pulse. Our diverse team of students and young professionals brings together expertise in STEM research, journalism, design, and technology to create engaging and informative content.
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Soha - Founder & President -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/soha.jpg?v=1739739309844"
-              alt="Soha" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Soha</h3>
-            <p class="text-silverlake font-semibold mb-4">Founder & President</p>
-            <p class="text-oxford-blue mb-4">Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Shambhavee - Secretary -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/shambhavee.jpg?v=1739816711854"
-              alt="Shambhavee" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Shambhavee</h3>
-            <p class="text-silverlake font-semibold mb-4">Secretary</p>
-            <p class="text-oxford-blue mb-4">I'm Shambhavee, a high school student studying Humanities, and I plan on pursuing Business Administration after school. Apart from Pixel Pulse, I've participated in a COP29 project and completed a journalism course. I love reading books, writing, and video editing.</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Harsith - Newsletter Director -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/harsith.jpg?v=1739739350036"
-              alt="Harsith" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Harsith</h3>
-            <p class="text-silverlake font-semibold mb-4">Newsletter Director</p>
-            <p class="text-oxford-blue mb-4">Hey there! I'm Harsith, a high school student super passionate about space, coffee, and badminton. I'm a STEM student and I love tinkering with projects and solving problems, and I'm excited about exploring aerospace engineering in the future. Really excited to be a part of this team!</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Breana - Content Director -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/breana2.jpg?v=1740245037363"
-              alt="Breana" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Breana</h3>
-            <p class="text-silverlake font-semibold mb-4">Content Director</p>
-            <p class="text-oxford-blue mb-4">Hiii, I'm Breana!!! I'm a sophomore in high school and the Head of Content Writing at Pixel Pulse. I want to pursue a career in the medical field one day, especially working in Cardiology. I love to read and write, whether it's just a simple essay or a story!</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Lynn - Media & Design Director -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/lynn.png?v=1739739345758"
-              alt="Lynn" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Lynn</h3>
-            <p class="text-silverlake font-semibold mb-4">Media & Design Director</p>
-            <p class="text-oxford-blue mb-4">Hello! I'm Lynn, a high school junior. I want to pursue industrial design and/or digital media design in college. I'm an artist and I love food, penguins, and funny memes. I'm excited to work with Pixel Pulse as head of design!</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Nikit - Website Lead -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/breana2.jpg?v=1740245037363"
-              alt="Nikit" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Nikit</h3>
-            <p class="text-silverlake font-semibold mb-4">Website Lead</p>
-            <p class="text-oxford-blue mb-4">Hi, I'm Nikit, a high school freshman passionate about computer science, entrepreneurship, and SaaS development. I enjoy building web applications and exploring new technologies. My goal is to create innovative software solutions that solve real-world problems. When I'm not coding, I'm learning about startups and business strategy to help bring my ideas to life.</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Rolleen - Physics & Chemistry Research Lead -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/rolleen.jpg?v=1739816415849"
-              alt="Rolleen" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Rolleen</h3>
-            <p class="text-silverlake font-semibold mb-4">Physics & Chemistry Research Lead</p>
-            <p class="text-oxford-blue mb-4">I'm Rolleen (pronounced row-lean)! I'm a high school student with a passion for chemistry, looking to pursue Chemical Engineering. I'm a big music nerd but I'm also a debater outside of Pixel Pulse! Glad to be part of this team as the research lead for Chemistry and Physics. ^_^</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Kate - Psychology Research Lead -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/kate.jpg?v=1739739345781"
-              alt="Kate" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Kate</h3>
-            <p class="text-silverlake font-semibold mb-4">Psychology Research Lead</p>
-            <p class="text-oxford-blue mb-4">Hi! I'm Kate, the Psychology Research Lead. I have a strong passion for psychology and love exploring how the human mind works. I'm thrilled to be part of this team!</p>
-            <p class="text-xs text-silverlake font-semibold uppercase tracking-wide">Executive</p>
-          </div>
-
-          <!-- Ana - Website Developer -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/pic.jpg?v=1739739385415"
-              alt="Ana" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Ana</h3>
-            <p class="text-silverlake font-semibold mb-4">Website Developer</p>
-            <p class="text-oxford-blue">Hi! I'm Ana, a high school junior planning to study Computer Science and Math at a four-year university. I love food and reading mystery books. I'm excited to be part of Pixel Pulse as a Web Developer!</p>
-          </div>
-
-          <!-- Enaya - Researcher -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/enaya.jpg?v=1739816514144"
-              alt="Enaya" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Enaya</h3>
-            <p class="text-silverlake font-semibold mb-4">Researcher (Physics & Chemistry)</p>
-            <p class="text-oxford-blue">Hi, my name is Enaya. I'm pursuing STEM in high school, studying Physics, ICT, and Chemistry. Since my interest in arts aligns with it, I'm keen on majoring in architecture in the future!</p>
-          </div>
-
-          <!-- Darren - Graphic Designer -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/darren.png?v=1739814810086"
-              alt="Darren" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Darren</h3>
-            <p class="text-silverlake font-semibold mb-4">Graphic Designer</p>
-            <p class="text-oxford-blue">Hi, I'm Darren, a high school student with experience in coding, web design, and graphic design. I'm passionate about technology and plan to pursue a computer science or software engineering career. Outside of tech, I enjoy both playing and watching sports, especially soccer and tennis.</p>
-          </div>
-
-          <!-- Dara - Graphic Designer -->
-          <div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-1 transition duration-300">
-            <img src="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/dara.jpg?v=1739814808819"
-              alt="Dara" class="w-40 h-40 rounded-full mx-auto mb-6 object-cover" />
-            <h3 class="text-2xl font-bold text-chambray mb-2">Dara</h3>
-            <p class="text-silverlake font-semibold mb-4">Graphic Designer</p>
-            <p class="text-oxford-blue">Hi, I'm Dara, a recent high school graduate with a passion for design and technology. I enjoy creating visually appealing designs as a hobby and have some experience in web development. I plan to pursue a career in computer science and will be starting college soon. Outside of tech, I love anime and animals.</p>
-          </div>
+        <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Team members will be loaded here by JavaScript -->
         </div>
       </section>
     </main>
@@ -318,6 +207,7 @@
               <li><a href="team.html" class="hover:text-silverlake transition duration-300">Our Team</a></li>
               <li><a href="newsletters.html" class="hover:text-silverlake transition duration-300">Newsletters</a></li>
               <li><a href="research.html" class="hover:text-silverlake transition duration-300">Research</a></li>
+              <li><a href="admin.html" class="text-xs text-gray-400 hover:text-silverlake transition duration-300" target="_blank">Admin Login</a></li>
             </ul>
           </div>
 
@@ -377,6 +267,74 @@
           }
         });
       });
+
+      // --- Supabase Team Loading ---
+      const { createClient } = supabase;
+      const SUPABASE_URL = 'https://dzoxjkfkahmyylvgiibw.supabase.co'; 
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6b3hqa2ZrYWhteXlsdmdpaWJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzgxNTEsImV4cCI6MjA1OTYxNDE1MX0.fbm7FP-ua9oaY2ULYRwGyS5j9TLp53u4XmVIvnJywR0'; // Use the same key as admin/populate
+      
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+          console.error('Error: Supabase credentials not configured in team.html script!');
+      } else {
+          const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          const teamGrid = document.getElementById('team-grid');
+
+          async function loadTeamMembers() {
+              if (!teamGrid) {
+                   console.error("Team grid element not found.");
+                   return;
+              }
+              console.log("loadTeamMembers called.");
+              teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading team members...</p>'; // Loading indicator
+
+              try {
+                  console.log("Fetching team members from Supabase...");
+                  const { data: teamMembers, error } = await supabaseClient
+                      .from('team_members')
+                      .select('*') // Select all columns
+                      .order('added_at', { ascending: true }); // Or order by name, etc.
+
+                  if (error) {
+                      console.error('Supabase fetch error (team_members):', error);
+                      teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error loading team members.</p>';
+                      return;
+                  }
+                  
+                  console.log("Fetched team members:", teamMembers);
+
+                  if (!teamMembers || teamMembers.length === 0) {
+                      console.log("No team members found in database.");
+                      teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">No team members found.</p>';
+                      return;
+                  }
+
+                  // Clear loading indicator
+                  teamGrid.innerHTML = ''; 
+
+                  teamMembers.forEach((member, index) => {
+                      const memberCard = `
+                        <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition duration-300 flex flex-col items-center" > 
+                            <img src="${member.image_url || 'placeholder.png'}" 
+                                 alt="${member.name}" 
+                                 class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-platinum" 
+                                 onerror="this.onerror=null;this.src='placeholder.png';" /> 
+                            <h3 class="text-xl font-bold text-chambray mb-1 text-center">${member.name}</h3>
+                            ${member.role ? `<p class="text-silverlake font-semibold mb-3 text-center text-sm">${member.role}</p>` : ''} 
+                            ${member.description ? `<p class="text-oxford-blue text-sm text-center flex-grow">${member.description}</p>` : ''} 
+                        </div>
+                      `;
+                      teamGrid.insertAdjacentHTML('beforeend', memberCard);
+                  });
+
+              } catch (fetchError) {
+                  console.error('Exception fetching team members:', fetchError);
+                  teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">An unexpected error occurred while loading team members.</p>';
+              }
+          }
+
+          // Load members when the page is ready
+          document.addEventListener('DOMContentLoaded', loadTeamMembers);
+      }
     </script>
   </body>
 </html>
