@@ -42,20 +42,20 @@ function openLink(url) {
 
 // Helper function to format date
 function formatDate(dateString) {
-    // Check if dateString is valid before splitting
-    if (!dateString || typeof dateString !== 'string' || !dateString.includes('-')) {
-        console.warn('Invalid dateString passed to formatDate:', dateString);
-        return 'Date unavailable'; // Or return empty string, or a default
+    // Check if dateString is a non-empty string
+    if (!dateString || typeof dateString !== 'string') {
+        console.warn('Invalid or missing dateString passed to formatDate:', dateString);
+        return 'Date unavailable';
     }
     try {
-        const [year, month, day] = dateString.split('-').map(Number);
-        // Basic check for parsed values
-        if (isNaN(year) || isNaN(month) || isNaN(day)) {
-             console.warn('Invalid date parts after splitting:', dateString);
+        // Directly create a Date object. JS engine usually parses ISO 8601 timestamps.
+        const date = new Date(dateString); 
+        // Check if the date is valid after parsing
+        if (isNaN(date.getTime())) {
+            console.warn('Could not parse dateString into valid Date:', dateString);
             return 'Invalid date';
         }
-        // Using Date.UTC to avoid timezone issues during parsing
-        const date = new Date(Date.UTC(year, month - 1, day)); 
+        // Use UTC options to avoid unintended timezone shifts during formatting
         const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
         return date.toLocaleDateString('en-US', options);
     } catch (e) {
@@ -470,25 +470,11 @@ function initializeHome() {
     // Add dynamic background to all sections
     document.querySelectorAll('section').forEach(addDynamicBackground);
 
-    // Load featured newsletter
+    // Load featured newsletter - loadNewsletterContent handles displaying it now
     loadNewsletterContent()
-        .then(() => {
-            const featuredNewsletter = document.getElementById('featured-newsletter');
-            if (featuredNewsletter) {
-                displayFeaturedNewsletter({
-                    id: 1,
-                    title: "The Future of AI in Healthcare",
-                    date: "2024-03-19",
-                    category: "Technology",
-                    content: "Exploring how artificial intelligence is revolutionizing healthcare, from diagnosis to treatment planning.",
-                    image: "https://source.unsplash.com/random/800x600/?ai,healthcare",
-                    tags: ["AI", "Healthcare", "Technology", "Innovation"],
-                    author: "Soha"
-                });
-            }
-        })
         .catch(error => {
-            console.error('Error loading featured newsletter:', error);
+            // Keep the catch block for logging errors during the actual fetch
+            console.error('Error during newsletter content loading for Home:', error);
         });
 
     // Initialize counters with intersection observer
