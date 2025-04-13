@@ -4,6 +4,12 @@
   # Directory containing serverless functions
   functions = "netlify/functions"
 
+# Map /api/config to the actual function file
+[[redirects]]
+  from = "/api/config"
+  to = "/.netlify/functions/get-config"
+  status = 200 # OK status for function proxy
+
 # Optional: Redirects (can map /api/* to functions, but let's stick to default for now)
 # [[redirects]]
 #  from = "/api/*"

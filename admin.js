@@ -1,7 +1,7 @@
 // Asynchronously fetch config and initialize Supabase
 async function initializeSupabaseAdmin() {
     try {
-        const response = await fetch('/.netlify/functions/config');
+        const response = await fetch('/api/config');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

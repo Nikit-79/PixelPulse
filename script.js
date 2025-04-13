@@ -1,7 +1,7 @@
 // Asynchronously fetch config and initialize Supabase
 async function initializeSupabaseGlobal() {
     try {
-        const response = await fetch('/.netlify/functions/config');
+        const response = await fetch('/api/config');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -531,13 +531,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const togglerButton = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.getElementById('navbarNav');
     
-    togglerButton.addEventListener('click', function () {
-        if (navbarCollapse.classList.contains('show')) {
-            navbarCollapse.classList.remove('show'); // Manually remove the 'show' class to close it
-        } else {
-            navbarCollapse.classList.add('show'); // Add the 'show' class to open it
-        }
-    });
+    // Only add listener if both elements are found
+    if (togglerButton && navbarCollapse) { 
+        togglerButton.addEventListener('click', function () {
+            if (navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show'); // Manually remove the 'show' class to close it
+            } else {
+                navbarCollapse.classList.add('show'); // Add the 'show' class to open it
+            }
+        });
+    } else {
+        // Expected if navbar elements aren't on the current page
+        // console.log("Navbar toggler elements not found on this page.");
+    }
 });
 
 // Handle contact form submission
