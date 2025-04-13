@@ -218,22 +218,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Set primary color CSS variable
     document.documentElement.style.setProperty('--color-primary', '#3e5c76');
 
-    // Initialize based on current page
+    // Initialize based on current page AFTER Supabase client is ready
     const path = window.location.pathname;
     console.log("Current path:", path);
     
     if (path.includes('newsletters.html')) {
-        console.log("Initializing Newsletters page...");
-        initializeNewsletters();
+        console.log("Initializing Newsletters page content...");
+        initializeNewsletters(); // Assumes this uses the global supabaseClient
     } else if (path.includes('research.html')) {
-        console.log("Initializing Research page...");
-        initializeResearch();
+        console.log("Initializing Research page content...");
+        initializeResearch(); // Assumes this uses the global supabaseClient
     } else if (path.includes('team.html')) {
-        // Team loading is handled by inline script in team.html
-        console.log("Team page detected (loading handled in team.html).");
-    } else {
-         console.log("Initializing Home page...");
-        initializeHome();
+        console.log("Initializing Team page content...");
+        if (typeof loadTeamMembers === 'function') {
+            loadTeamMembers(); // Call the function defined in team.html
+        } else {
+            console.error('loadTeamMembers function not found on team page.');
+            displayFallbackContent('team-grid', 'Error loading team content.');
+        }
+    } else if (path.includes('index.html') || path === '/') { // Handle root path for home
+         console.log("Initializing Home page content...");
+        initializeHome(); // Assumes this uses the global supabaseClient
     }
 
     // Add smooth scroll for anchor links

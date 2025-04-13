@@ -268,78 +268,70 @@
         });
       });
 
-      // --- Supabase Team Loading ---
-      const SUPABASE_URL_TEAM = window.SUPABASE_PROJECT_CONFIG?.url;
-      const SUPABASE_ANON_KEY_TEAM = window.SUPABASE_PROJECT_CONFIG?.anonKey;
-      let supabaseClientTeam = null;
-
-      if (!SUPABASE_URL_TEAM || !SUPABASE_ANON_KEY_TEAM) {
-          console.error('Error: Supabase config not found in team.html!');
-      } else if (typeof supabase === 'undefined' || typeof supabase.createClient !== 'function') {
-          console.error('Error: Supabase client library not loaded in team.html!');
-      } else {
-          supabaseClientTeam = supabase.createClient(SUPABASE_URL_TEAM, SUPABASE_ANON_KEY_TEAM);
+      // --- Team Loading Function ---
+      // Note: This function now relies on the global supabaseClient from script.js
+      // It will be called from script.js after the global client is initialized.
+      async function loadTeamMembers() {
           const teamGrid = document.getElementById('team-grid');
+          if (!teamGrid) {
+                console.error("Team grid element not found.");
+                return;
+          }
+          // Use the GLOBAL supabaseClient, assuming it's initialized by script.js
+          if (!supabaseClient) { 
+              console.error("Global Supabase client not ready for team loading.");
+              teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error: Database connection failed.</p>';
+              return;
+          }
+          console.log("loadTeamMembers called.");
+          teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading team members...</p>'; 
 
-          async function loadTeamMembers() {
-              if (!teamGrid) {
-                   console.error("Team grid element not found.");
-                   return;
-              }
-              if (!supabaseClientTeam) {
-                  console.error("Supabase client for team not ready.");
-                  teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error: Database connection failed.</p>';
+          try {
+              console.log("Fetching team members from Supabase...");
+              // Use the global supabaseClient
+              const { data: teamMembers, error } = await supabaseClient 
+                  .from('team_members')
+                  .select('*') 
+                  .order('added_at', { ascending: true }); 
+
+              if (error) {
+                  console.error('Supabase fetch error (team_members):', error);
+                  teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error loading team members.</p>';
                   return;
               }
-              console.log("loadTeamMembers called.");
-              teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading team members...</p>'; 
+              
+              console.log("Fetched team members:", teamMembers);
 
-              try {
-                  console.log("Fetching team members from Supabase...");
-                  const { data: teamMembers, error } = await supabaseClientTeam
-                      .from('team_members')
-                      .select('*') 
-                      .order('added_at', { ascending: true }); 
-
-                  if (error) {
-                      console.error('Supabase fetch error (team_members):', error);
-                      teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error loading team members.</p>';
-                      return;
-                  }
-                  
-                  console.log("Fetched team members:", teamMembers);
-
-                  if (!teamMembers || teamMembers.length === 0) {
-                      console.log("No team members found in database.");
-                      teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">No team members found.</p>';
-                      return;
-                  }
-
-                  teamGrid.innerHTML = ''; 
-
-                  teamMembers.forEach((member, index) => {
-                      const memberCard = `
-                       <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition duration-300 flex flex-col items-center" > 
-                            <img src="${member.image_url || 'placeholder.png'}" 
-                                 alt="${member.name}" 
-                                 class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-platinum" 
-                                 onerror="this.onerror=null;this.src='placeholder.png';" /> 
-                            <h3 class="text-xl font-bold text-chambray mb-1 text-center">${member.name}</h3>
-                            ${member.role ? `<p class="text-silverlake font-semibold mb-3 text-center text-sm">${member.role}</p>` : ''} 
-                            ${member.description ? `<p class="text-oxford-blue text-sm text-center flex-grow">${member.description}</p>` : ''} 
-                        </div>
-                      `;
-                      teamGrid.insertAdjacentHTML('beforeend', memberCard);
-                  });
-
-              } catch (fetchError) {
-                  console.error('Exception fetching team members:', fetchError);
-                  teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">An unexpected error occurred while loading team members.</p>';
+              if (!teamMembers || teamMembers.length === 0) {
+                  console.log("No team members found in database.");
+                  teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">No team members found.</p>';
+                  return;
               }
-          }
 
-          document.addEventListener('DOMContentLoaded', loadTeamMembers);
+              teamGrid.innerHTML = ''; 
+
+              teamMembers.forEach((member, index) => {
+                  const memberCard = `
+                    <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition duration-300 flex flex-col items-center" > 
+                        <img src="${member.image_url || 'placeholder.png'}" 
+                              alt="${member.name}" 
+                              class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-platinum" 
+                              onerror="this.onerror=null;this.src='placeholder.png';" /> 
+                        <h3 class="text-xl font-bold text-chambray mb-1 text-center">${member.name}</h3>
+                        ${member.role ? `<p class="text-silverlake font-semibold mb-3 text-center text-sm">${member.role}</p>` : ''} 
+                        ${member.description ? `<p class="text-oxford-blue text-sm text-center flex-grow">${member.description}</p>` : ''} 
+                    </div>
+                  `;
+                  teamGrid.insertAdjacentHTML('beforeend', memberCard);
+              });
+
+          } catch (fetchError) {
+              console.error('Exception fetching team members:', fetchError);
+              teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">An unexpected error occurred while loading team members.</p>';
+          }
       }
+      // REMOVED: document.addEventListener('DOMContentLoaded', loadTeamMembers);
+      // loadTeamMembers will now be called from script.js
     </script>
   </body>
 </html>
