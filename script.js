@@ -480,6 +480,7 @@ function displayFallbackContent(elementId, message = 'Could not load content.') 
 
 // Initialize specific page content
 function initializeNewsletters() {
+    console.log("Inside initializeNewsletters()...");
     loadNewsletterContent(); // Call the updated function
 }
 
