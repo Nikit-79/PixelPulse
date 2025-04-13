@@ -637,7 +637,9 @@ teamForm?.addEventListener('submit', async (e) => {
         finalImageUrl = null;
         if (oldFiles?.image) fileToDelete.image = oldFiles.image;
     } else if (imageFile?.size > 0) {
+        console.log("Team form: Image file detected, attempting upload..."); // Log: Image detected
         const newUrl = await uploadFile(imageFile, 'team_images');
+        console.log("Team form: Upload result URL:", newUrl); // Log: URL from upload
         if (!newUrl) {
              console.warn('Team image upload failed. Proceeding without image update.');
              finalImageUrl = isEditing ? oldFiles.image : null; 
@@ -645,14 +647,17 @@ teamForm?.addEventListener('submit', async (e) => {
             finalImageUrl = newUrl;
              if (oldFiles?.image && oldFiles.image !== newUrl) fileToDelete.image = oldFiles.image;
         }
+    } else {
+        console.log("Team form: No new image file provided or remove not checked."); // Log: No image action
     }
 
     const dataToUpsert = {
         name: name,
         role: role,
         description: description,
-        image_url: finalImageUrl,
+        image_url: finalImageUrl, // This should be the URL if upload succeeded
     };
+    console.log("Team form: Data to upsert:", dataToUpsert); // Log: Data before insert/update
 
     let resultError = null;
      showMessage(teamMessage, isEditing ? 'Saving changes...' : 'Adding item...');
