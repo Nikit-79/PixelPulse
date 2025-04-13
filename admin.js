@@ -453,7 +453,7 @@ researchForm?.addEventListener('submit', async (e) => {
         finalPdfUrl = null;
         if (oldFiles?.pdf) fileToDelete.pdf = oldFiles.pdf;
     } else if (pdfFile?.size > 0) { 
-        const newUrl = await uploadFile(pdfFile, 'research_pdfs');
+        const newUrl = await uploadFile(pdfFile, 'research-pdfs');
         if (!newUrl) return showMessage(researchMessage, 'Failed to upload new PDF.', true); 
         finalPdfUrl = newUrl;
         if (oldFiles?.pdf && oldFiles.pdf !== newUrl) fileToDelete.pdf = oldFiles.pdf; // Delete old only if different
@@ -468,7 +468,7 @@ researchForm?.addEventListener('submit', async (e) => {
         finalImageUrl = null;
         if (oldFiles?.image) fileToDelete.image = oldFiles.image;
     } else if (imageFile?.size > 0) {
-        const newUrl = await uploadFile(imageFile, 'research_previews');
+        const newUrl = await uploadFile(imageFile, 'research-previews');
         if (!newUrl) {
              console.warn('Optional image upload failed. Proceeding without image update.');
              // Keep the existing image if upload fails
@@ -552,7 +552,7 @@ newsletterForm?.addEventListener('submit', async (e) => {
         finalPdfUrl = null;
         if (oldFiles?.pdf) fileToDelete.pdf = oldFiles.pdf;
     } else if (pdfFile?.size > 0) { 
-        const newUrl = await uploadFile(pdfFile, 'newsletter_pdfs');
+        const newUrl = await uploadFile(pdfFile, 'newsletter-pdfs');
         if (!newUrl) return showMessage(newsletterMessage, 'Failed to upload new PDF.', true); 
         finalPdfUrl = newUrl;
          if (oldFiles?.pdf && oldFiles.pdf !== newUrl) fileToDelete.pdf = oldFiles.pdf;
@@ -566,7 +566,7 @@ newsletterForm?.addEventListener('submit', async (e) => {
         finalImageUrl = null;
         if (oldFiles?.image) fileToDelete.image = oldFiles.image;
     } else if (imageFile?.size > 0) {
-        const newUrl = await uploadFile(imageFile, 'newsletter_previews');
+        const newUrl = await uploadFile(imageFile, 'newsletter-previews');
         if (!newUrl) {
              console.warn('Optional newsletter image upload failed. Proceeding without image update.');
              finalImageUrl = isEditing ? oldFiles.image : null; 
@@ -637,9 +637,10 @@ teamForm?.addEventListener('submit', async (e) => {
         finalImageUrl = null;
         if (oldFiles?.image) fileToDelete.image = oldFiles.image;
     } else if (imageFile?.size > 0) {
-        console.log("Team form: Image file detected, attempting upload..."); // Log: Image detected
-        const newUrl = await uploadFile(imageFile, 'team_images');
-        console.log("Team form: Upload result URL:", newUrl); // Log: URL from upload
+        console.log("Team form: Image file detected, attempting upload..."); 
+        // Use hyphenated bucket name
+        const newUrl = await uploadFile(imageFile, 'team-images');
+        console.log("Team form: Upload result URL:", newUrl); 
         if (!newUrl) {
              console.warn('Team image upload failed. Proceeding without image update.');
              finalImageUrl = isEditing ? oldFiles.image : null; 
@@ -845,27 +846,29 @@ function getPathFromUrl(url) {
 async function deleteStorageFiles(filesToDelete) {
     const pathsToDelete = [];
     const bucketMap = {
-        research_pdfs: [],
-        research_previews: [],
-        newsletter_pdfs: [],
-        newsletter_previews: [],
-        team_images: []
+        'research-pdfs': [],
+        'research-previews': [],
+        'newsletter-pdfs': [],
+        'newsletter-previews': [],
+        'team-images': []
     };
 
     // Categorize paths by bucket based on URL hints or known structure
     if (filesToDelete.pdf) {
         const pdfPath = getPathFromUrl(filesToDelete.pdf);
         if (pdfPath) {
-            if (filesToDelete.pdf.includes('/research_pdfs/')) bucketMap.research_pdfs.push(pdfPath);
-            else if (filesToDelete.pdf.includes('/newsletter_pdfs/')) bucketMap.newsletter_pdfs.push(pdfPath);
+            // Use hyphenated names for matching
+            if (filesToDelete.pdf.includes('/research-pdfs/')) bucketMap['research-pdfs'].push(pdfPath);
+            else if (filesToDelete.pdf.includes('/newsletter-pdfs/')) bucketMap['newsletter-pdfs'].push(pdfPath);
         }
     }
     if (filesToDelete.image) {
         const imgPath = getPathFromUrl(filesToDelete.image);
         if (imgPath) {
-            if (filesToDelete.image.includes('/research_previews/')) bucketMap.research_previews.push(imgPath);
-            else if (filesToDelete.image.includes('/newsletter_previews/')) bucketMap.newsletter_previews.push(imgPath);
-            else if (filesToDelete.image.includes('/team_images/')) bucketMap.team_images.push(imgPath);
+            // Use hyphenated names for matching
+            if (filesToDelete.image.includes('/research-previews/')) bucketMap['research-previews'].push(imgPath);
+            else if (filesToDelete.image.includes('/newsletter-previews/')) bucketMap['newsletter-previews'].push(imgPath);
+            else if (filesToDelete.image.includes('/team-images/')) bucketMap['team-images'].push(imgPath);
         }
     }
 
