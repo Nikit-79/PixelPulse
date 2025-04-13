@@ -342,16 +342,24 @@ async function loadNewsletterContent() {
 
 // Display featured newsletter with animation
 function displayFeaturedNewsletter(newsletter) {
+    console.log("Attempting to display featured newsletter:", newsletter);
     const featuredContent = document.getElementById('featured-content');
-    if (!featuredContent || !newsletter) {
-        if (featuredContent) featuredContent.innerHTML = ''; // Clear if no newsletter
+    if (!featuredContent) {
+        console.error("Element with ID 'featured-content' not found!");
         return;
     }
+    if (!newsletter) {
+        console.warn("No newsletter data provided to displayFeaturedNewsletter.");
+        featuredContent.innerHTML = ''; // Clear if no newsletter
+        return;
+    }
+    console.log("Found featured-content element and newsletter data.");
 
     // Use file_url directly, assuming it's the public PDF URL
     const pdfUrl = newsletter.file_url; 
     const imageUrl = newsletter.image_url; // Preview image URL
 
+    console.log("Setting innerHTML for featured-content...");
     featuredContent.innerHTML = `
         <div class="relative group cursor-pointer" onclick="openLink('${pdfUrl}')"> <!-- Add group and cursor -->
             <div class="relative w-full h-64 mb-6 overflow-hidden rounded-lg">
@@ -382,15 +390,19 @@ function displayFeaturedNewsletter(newsletter) {
             </div> -->
         </div>
     `;
+    console.log("Finished displaying featured newsletter.");
 }
 
 // Display all newsletters with staggered animation
 function displayAllNewsletters(newsletters) {
+    console.log("Attempting to display all newsletters:", newsletters);
     const grid = document.getElementById('newsletters-grid');
     const template = document.getElementById('newsletter-card-template');
-    // const tagTemplate = document.getElementById('tag-template'); // Keep if tags are added later
     
-    if (!grid || !template || !newsletters) return;
+    if (!grid) { console.error("Element with ID 'newsletters-grid' not found!"); return; }
+    if (!template) { console.error("Element with ID 'newsletter-card-template' not found!"); return; }
+    if (!newsletters) { console.warn("No newsletters data provided to displayAllNewsletters."); return; }
+    console.log("Found newsletters-grid, template, and newsletters data.");
 
     grid.innerHTML = ''; // Clear previous content
 
