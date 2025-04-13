@@ -399,7 +399,12 @@ function displayAllNewsletters(newsletters) {
     const grid = document.getElementById('newsletters-grid');
     const template = document.getElementById('newsletter-card-template');
     
-    if (!grid) { console.error("Element with ID 'newsletters-grid' not found!"); return; }
+    // If the grid doesn't exist (e.g., on index.html), just return silently.
+    if (!grid) { 
+        // console.log("'newsletters-grid' not found, skipping displayAllNewsletters (expected on index page)."); 
+        return; 
+    }
+    // Continue only if the grid exists
     if (!template) { console.error("Element with ID 'newsletter-card-template' not found!"); return; }
     if (!newsletters) { console.warn("No newsletters data provided to displayAllNewsletters."); return; }
     console.log("Found newsletters-grid, template, and newsletters data.");
