@@ -362,6 +362,13 @@ async function handleDeleteClick(event) {
     }
 }
 
+// --- Initial State ---
+// Disable login button until Supabase client is ready
+if (loginButton) {
+    loginButton.disabled = true;
+    loginButton.textContent = 'Loading...'; // Indicate loading state
+}
+
 // --- Authentication Logic ---
 
 loginButton?.addEventListener('click', async (e) => {
@@ -715,13 +722,23 @@ async function checkInitialSession() {
 async function initializeAdminPortal() {
     try {
         supabaseClient = await initializeSupabaseAdmin();
-        await checkInitialSession(); // This now depends on supabaseClient being initialized
+        // Client is ready, check session
+        await checkInitialSession(); 
+        
+        // Re-enable the login button IF the login section is still visible
+        if (loginButton && !loginSection.classList.contains('hidden')) {
+            loginButton.disabled = false;
+            loginButton.textContent = 'Send Login Link'; 
+        }
+
     } catch (initError) {
         console.error("Initialization failed:", initError);
-        // Display error to user appropriately, maybe disable forms
         loginMessage.textContent = 'Error loading admin portal configuration.';
         loginMessage.classList.add('text-red-500');
-        loginButton.disabled = true;
+        if (loginButton) {
+            loginButton.disabled = true; // Ensure it stays disabled on error
+            loginButton.textContent = 'Error';
+        }
     }
 }
 
