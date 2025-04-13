@@ -7,8 +7,19 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <style>
         /* Add any custom styles here if needed */
+        .sortable-ghost {
+            opacity: 0.4;
+            background-color: #f0f0f0;
+        }
+        .team-item-handle {
+            cursor: grab;
+        }
+        .team-item-handle:active {
+            cursor: grabbing;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">

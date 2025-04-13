@@ -621,7 +621,7 @@ async function loadTeamMembers() {
         const { data: teamMembers, error } = await supabaseClient 
             .from('team_members')
             .select('*') 
-            .order('added_at', { ascending: true }); 
+            .order('position', { ascending: true }); 
 
         if (error) {
             console.error('Supabase fetch error (team_members):', error);
@@ -637,7 +637,7 @@ async function loadTeamMembers() {
             return;
         }
 
-        teamGrid.innerHTML = ''; 
+        teamGrid.innerHTML = '';
 
         teamMembers.forEach((member, index) => {
             const memberCard = `

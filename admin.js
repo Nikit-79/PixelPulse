@@ -58,9 +58,18 @@ function renderAdminItem(item, type) {
     const editButton = `<button data-id="${item.id}" data-type="${type}" class="edit-btn text-xs bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded">Edit</button>`;
     const deleteButton = `<button data-id="${item.id}" data-type="${type}" data-files='${JSON.stringify({ pdf: item.file_url, image: item.image_url })}' class="delete-btn text-xs bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded ml-1">Delete</button>`;
     
+    // Add drag handle for team members
+    const dragHandle = type === 'team' ? 
+        `<div class="team-item-handle mr-2 flex-shrink-0 text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg></div>` : '';
+    
     return `
-        <div class="admin-item flex justify-between items-center p-2 border-b border-gray-200" data-item-id="${item.id}">
-            <span class="text-sm text-gray-700">${title}</span>
+        <div class="admin-item flex justify-between items-center p-2 border-b border-gray-200" data-item-id="${item.id}" ${type === 'team' ? `data-position="${item.position || 0}"` : ''}>
+            <div class="flex items-center">
+                ${dragHandle}
+                <span class="text-sm text-gray-700">${title}</span>
+            </div>
             <div>
                 ${editButton}
                 ${deleteButton}
@@ -85,7 +94,7 @@ async function displayAdminList(type) {
         case 'team': 
             listElement = adminTeamList; 
             tableName = 'team_members'; 
-            orderByField = 'name';
+            orderByField = 'position';
             break;
         default: return;
     }
@@ -111,8 +120,14 @@ async function displayAdminList(type) {
         }
 
         listElement.innerHTML = data.map(item => renderAdminItem(item, type)).join('');
+        
         // Add event listeners after rendering
         addAdminListEventListeners(listElement);
+        
+        // Initialize Sortable for team members list
+        if (type === 'team') {
+            initTeamSortable(listElement);
+        }
 
     } catch (err) {
         console.error(`Exception fetching admin ${type} list:`, err);
@@ -889,3 +904,57 @@ async function deleteStorageFiles(filesToDelete) {
 // --- Initialization ---
 // Start the initialization process when the script loads
 document.addEventListener('DOMContentLoaded', initializeAdminPortal); 
+
+// Function to initialize Sortable for team members
+function initTeamSortable(listElement) {
+    if (typeof Sortable === 'undefined') {
+        console.error('Sortable library not loaded');
+        return;
+    }
+    
+    if (listElement.sortableInstance) {
+        listElement.sortableInstance.destroy();
+    }
+    
+    listElement.sortableInstance = new Sortable(listElement, {
+        handle: '.team-item-handle',
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        onEnd: async function(evt) {
+            await updateTeamPositions(listElement);
+        }
+    });
+}
+
+// Function to update team positions after drag & drop
+async function updateTeamPositions(listElement) {
+    const teamItems = Array.from(listElement.querySelectorAll('.admin-item'));
+    
+    // First, update the local positions
+    teamItems.forEach((item, index) => {
+        item.dataset.position = index + 1;
+    });
+    
+    try {
+        // Prepare batch update
+        const updates = teamItems.map((item, index) => ({
+            id: item.dataset.itemId,
+            position: index + 1
+        }));
+        
+        // Send batch update to Supabase
+        const { error } = await supabaseClient
+            .from('team_members')
+            .upsert(updates, { onConflict: 'id' });
+            
+        if (error) {
+            console.error('Error updating team positions:', error);
+            alert('Failed to save new team order. Please try again.');
+        } else {
+            console.log('Team positions updated successfully');
+        }
+    } catch (err) {
+        console.error('Exception updating team positions:', err);
+        alert('An unexpected error occurred while saving team order.');
+    }
+} 
