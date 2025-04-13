@@ -42,10 +42,26 @@ function openLink(url) {
 
 // Helper function to format date
 function formatDate(dateString) {
-    const [year, month, day] = dateString.split('-').map(Number);
-    const date = new Date(year, month - 1, day + 1);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
+    // Check if dateString is valid before splitting
+    if (!dateString || typeof dateString !== 'string' || !dateString.includes('-')) {
+        console.warn('Invalid dateString passed to formatDate:', dateString);
+        return 'Date unavailable'; // Or return empty string, or a default
+    }
+    try {
+        const [year, month, day] = dateString.split('-').map(Number);
+        // Basic check for parsed values
+        if (isNaN(year) || isNaN(month) || isNaN(day)) {
+             console.warn('Invalid date parts after splitting:', dateString);
+            return 'Invalid date';
+        }
+        // Using Date.UTC to avoid timezone issues during parsing
+        const date = new Date(Date.UTC(year, month - 1, day)); 
+        const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+        return date.toLocaleDateString('en-US', options);
+    } catch (e) {
+        console.error('Error formatting date:', dateString, e);
+        return 'Invalid date format';
+    }
 }
 
 // Helper function to truncate text
@@ -230,12 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initializeResearch(); // Assumes this uses the global supabaseClient
     } else if (path.includes('team.html')) {
         console.log("Initializing Team page content...");
-        if (typeof loadTeamMembers === 'function') {
-            loadTeamMembers(); // Call the function defined in team.html
-        } else {
-            console.error('loadTeamMembers function not found on team page.');
-            displayFallbackContent('team-grid', 'Error loading team content.');
-        }
+        loadTeamMembers(); 
     } else if (path.includes('index.html') || path === '/') { // Handle root path for home
          console.log("Initializing Home page content...");
         initializeHome(); // Assumes this uses the global supabaseClient
@@ -579,4 +590,64 @@ function initializeResearch() {
                 `;
             }
         });
+}
+
+// TEAM SECTION---------------------------------------------------
+// Load Team Members (Moved from team.html)
+async function loadTeamMembers() {
+    const teamGrid = document.getElementById('team-grid');
+    if (!teamGrid) {
+        console.error("Team grid element not found.");
+        return;
+    }
+    if (!supabaseClient) { 
+        console.error("Global Supabase client not ready for team loading.");
+        teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error: Database connection failed.</p>';
+        return;
+    }
+    console.log("loadTeamMembers called (from script.js)."); // Log execution
+    teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading team members...</p>'; 
+
+    try {
+        console.log("Fetching team members from Supabase...");
+        const { data: teamMembers, error } = await supabaseClient 
+            .from('team_members')
+            .select('*') 
+            .order('added_at', { ascending: true }); 
+
+        if (error) {
+            console.error('Supabase fetch error (team_members):', error);
+            teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error loading team members.</p>';
+            return;
+        }
+        
+        console.log("Fetched team members:", teamMembers);
+
+        if (!teamMembers || teamMembers.length === 0) {
+            console.log("No team members found in database.");
+            teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">No team members found.</p>';
+            return;
+        }
+
+        teamGrid.innerHTML = ''; 
+
+        teamMembers.forEach((member, index) => {
+            const memberCard = `
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition duration-300 flex flex-col items-center" > 
+                    <img src="${member.image_url || 'placeholder.png'}" 
+                            alt="${member.name}" 
+                            class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-platinum" 
+                            onerror="this.onerror=null;this.src='placeholder.png';" /> 
+                    <h3 class="text-xl font-bold text-chambray mb-1 text-center">${member.name}</h3>
+                    ${member.role ? `<p class="text-silverlake font-semibold mb-3 text-center text-sm">${member.role}</p>` : ''} 
+                    ${member.description ? `<p class="text-oxford-blue text-sm text-center flex-grow">${member.description}</p>` : ''} 
+                </div>
+            `;
+            teamGrid.insertAdjacentHTML('beforeend', memberCard);
+        });
+
+    } catch (fetchError) {
+        console.error('Exception fetching team members:', fetchError);
+        teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">An unexpected error occurred while loading team members.</p>';
+    }
 }
