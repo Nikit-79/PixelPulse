@@ -241,29 +241,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         initializeHome(); // Assumes this uses the global supabaseClient
     }
 
-    // Add smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+    // Add smooth scroll for anchor links (only if links exist)
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    if (anchorLinks.length > 0) {
+        anchorLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
-    });
+    }
 
-    // Add hover effect for navigation links
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            link.classList.add('animate-scale-pulse');
+    // Add hover effect for navigation links (only if links exist)
+    const navLinks = document.querySelectorAll('nav a');
+    if (navLinks.length > 0) {
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.classList.add('animate-scale-pulse');
+            });
+            link.addEventListener('mouseleave', () => {
+                link.classList.remove('animate-scale-pulse');
+            });
         });
-        link.addEventListener('mouseleave', () => {
-            link.classList.remove('animate-scale-pulse');
-        });
-    });
+    }
+
+    // Attach contact form listener (only if form exists)
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', sendEmail);
+    } else {
+        // This is expected on pages other than index.html
+        // console.log("Contact form not found on this page.");
+    }
 });
 
 

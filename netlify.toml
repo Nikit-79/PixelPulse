@@ -1,0 +1,11 @@
+# netlify.toml
+
+[build]
+  # Directory containing serverless functions
+  functions = "netlify/functions"
+
+# Optional: Redirects (can map /api/* to functions, but let's stick to default for now)
+# [[redirects]]
+#  from = "/api/*"
+#  to = "/.netlify/functions/:splat"
+#  status = 200 
