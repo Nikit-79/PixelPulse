@@ -1,17 +1,21 @@
-const { createClient } = supabase; // Destructure createClient from the global Supabase object loaded via CDN
-
 // --- Configuration ---
-// Replace these with your actual Supabase project URL and Anon key from .env
-// (It's better practice to fetch these from a config endpoint in a real app,
-// but we'll hardcode them here for simplicity, assuming the .env values)
-const SUPABASE_URL = 'https://dzoxjkfkahmyylvgiibw.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6b3hqa2ZrYWhteXlsdmdpaWJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzgxNTEsImV4cCI6MjA1OTYxNDE1MX0.fbm7FP-ua9oaY2ULYRwGyS5j9TLp53u4XmVIvnJywR0';
+// Load keys from config.js (ensure config.js is loaded in HTML first)
+const SUPABASE_URL = window.SUPABASE_PROJECT_CONFIG?.url;
+const SUPABASE_ANON_KEY = window.SUPABASE_PROJECT_CONFIG?.anonKey;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    alert('Error: Supabase URL and Key are not configured correctly in admin.js!');
+    alert('CRITICAL Error: Supabase config not found. Check config.js and HTML inclusion.');
+    // Prevent further execution
+    throw new Error("Supabase configuration missing."); 
 }
 
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Check if createClient exists (loaded from Supabase CDN)
+if (typeof supabase === 'undefined' || typeof supabase.createClient !== 'function') {
+     alert('CRITICAL Error: Supabase client library not loaded. Check network or script tag in HTML.');
+     throw new Error("Supabase client library missing.");
+}
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // --- DOM Elements ---
 const loginSection = document.getElementById('login-section');

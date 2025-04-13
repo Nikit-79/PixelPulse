@@ -132,6 +132,7 @@
     </script>
 
     <!-- Supabase Client -->
+    <script src="config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Icons -->
@@ -269,14 +270,16 @@
       });
 
       // --- Supabase Team Loading ---
-      const { createClient } = supabase;
-      const SUPABASE_URL = 'https://dzoxjkfkahmyylvgiibw.supabase.co'; 
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6b3hqa2ZrYWhteXlsdmdpaWJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzgxNTEsImV4cCI6MjA1OTYxNDE1MX0.fbm7FP-ua9oaY2ULYRwGyS5j9TLp53u4XmVIvnJywR0'; // Use the same key as admin/populate
-      
-      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-          console.error('Error: Supabase credentials not configured in team.html script!');
+      const SUPABASE_URL_TEAM = window.SUPABASE_PROJECT_CONFIG?.url;
+      const SUPABASE_ANON_KEY_TEAM = window.SUPABASE_PROJECT_CONFIG?.anonKey;
+      let supabaseClientTeam = null;
+
+      if (!SUPABASE_URL_TEAM || !SUPABASE_ANON_KEY_TEAM) {
+          console.error('Error: Supabase config not found in team.html!');
+      } else if (typeof supabase === 'undefined' || typeof supabase.createClient !== 'function') {
+          console.error('Error: Supabase client library not loaded in team.html!');
       } else {
-          const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          supabaseClientTeam = supabase.createClient(SUPABASE_URL_TEAM, SUPABASE_ANON_KEY_TEAM);
           const teamGrid = document.getElementById('team-grid');
 
           async function loadTeamMembers() {
@@ -284,15 +287,20 @@
                    console.error("Team grid element not found.");
                    return;
               }
+              if (!supabaseClientTeam) {
+                  console.error("Supabase client for team not ready.");
+                  teamGrid.innerHTML = '<p class="text-center text-red-600 col-span-full">Error: Database connection failed.</p>';
+                  return;
+              }
               console.log("loadTeamMembers called.");
-              teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading team members...</p>'; // Loading indicator
+              teamGrid.innerHTML = '<p class="text-center text-gray-600 col-span-full">Loading team members...</p>'; 
 
               try {
                   console.log("Fetching team members from Supabase...");
-                  const { data: teamMembers, error } = await supabaseClient
+                  const { data: teamMembers, error } = await supabaseClientTeam
                       .from('team_members')
-                      .select('*') // Select all columns
-                      .order('added_at', { ascending: true }); // Or order by name, etc.
+                      .select('*') 
+                      .order('added_at', { ascending: true }); 
 
                   if (error) {
                       console.error('Supabase fetch error (team_members):', error);
@@ -308,12 +316,11 @@
                       return;
                   }
 
-                  // Clear loading indicator
                   teamGrid.innerHTML = ''; 
 
                   teamMembers.forEach((member, index) => {
                       const memberCard = `
-                        <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition duration-300 flex flex-col items-center" > 
+                       <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition duration-300 flex flex-col items-center" > 
                             <img src="${member.image_url || 'placeholder.png'}" 
                                  alt="${member.name}" 
                                  class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-platinum" 
@@ -332,7 +339,6 @@
               }
           }
 
-          // Load members when the page is ready
           document.addEventListener('DOMContentLoaded', loadTeamMembers);
       }
     </script>

@@ -1,0 +1,18 @@
+# Environment variables
+.env
+
+# Configuration file (contains Supabase keys)
+config.js
+
+# Node dependencies
+node_modules/
+
+# macOS system files
+.DS_Store
+
+# Log files (if any created later)
+*.log
+
+# Build directories (if any created later)
+dist/
+build/ 

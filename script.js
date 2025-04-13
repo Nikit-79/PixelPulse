@@ -1,12 +1,17 @@
 // --- Supabase Client Initialization ---
-const { createClient } = supabase; // Assumes Supabase is loaded globally via CDN
-const SUPABASE_URL = 'https://dzoxjkfkahmyylvgiibw.supabase.co'; 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6b3hqa2ZrYWhteXlsdmdpaWJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzgxNTEsImV4cCI6MjA1OTYxNDE1MX0.fbm7FP-ua9oaY2ULYRwGyS5j9TLp53u4XmVIvnJywR0'; 
-let supabaseClient = null;
-if (SUPABASE_URL && SUPABASE_ANON_KEY && typeof createClient === 'function') {
-    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Load keys from config.js (ensure config.js is loaded in HTML first)
+const SUPABASE_URL_GLOBAL = window.SUPABASE_PROJECT_CONFIG?.url;
+const SUPABASE_ANON_KEY_GLOBAL = window.SUPABASE_PROJECT_CONFIG?.anonKey;
+let supabaseClient = null; // Keep this name as it's used throughout
+
+if (SUPABASE_URL_GLOBAL && SUPABASE_ANON_KEY_GLOBAL && typeof supabase !== 'undefined' && typeof supabase.createClient === 'function') {
+    supabaseClient = supabase.createClient(SUPABASE_URL_GLOBAL, SUPABASE_ANON_KEY_GLOBAL);
 } else {
-    console.error('Supabase client not initialized. Check credentials and CDN script inclusion.');
+    console.error('Supabase client could not be initialized in script.js. Check config.js and script loading order in HTML.');
+    // Display fallback content immediately if initialization fails here
+    displayFallbackContent('newsletters-grid', 'Error: Cannot connect to database.');
+    displayFallbackContent('featured-content', '');
+    displayFallbackContent('research-cards', 'Error: Cannot connect to database.');
 }
 
 // Helper function to open links in new tab
