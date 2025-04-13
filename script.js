@@ -238,18 +238,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const path = window.location.pathname;
     console.log("Current path:", path);
     
-    if (path.includes('newsletters.html')) {
+    // Use path.startsWith() for clearer matching without .html
+    if (path.startsWith('/newsletters')) {
         console.log("Initializing Newsletters page content...");
-        initializeNewsletters(); // Assumes this uses the global supabaseClient
-    } else if (path.includes('research.html')) {
+        initializeNewsletters(); 
+    } else if (path.startsWith('/research')) {
         console.log("Initializing Research page content...");
-        initializeResearch(); // Assumes this uses the global supabaseClient
-    } else if (path.includes('team.html')) {
+        initializeResearch(); 
+    } else if (path.startsWith('/team')) {
         console.log("Initializing Team page content...");
         loadTeamMembers(); 
-    } else if (path.includes('index.html') || path === '/') { // Handle root path for home
+    } else if (path.startsWith('/admin')) {
+        // Do nothing here, admin.js handles its own initialization
+        console.log("Admin page detected, script.js skipping initialization.");
+    } else { // Assume it's the index page (/, /index, /index.html, etc.)
          console.log("Initializing Home page content...");
-        initializeHome(); // Assumes this uses the global supabaseClient
+        initializeHome(); 
     }
 
     // Add smooth scroll for anchor links (only if links exist)
