@@ -1,21 +1,34 @@
-// --- Configuration ---
-// Load keys from config.js (ensure config.js is loaded in HTML first)
-const SUPABASE_URL = window.SUPABASE_PROJECT_CONFIG?.url;
-const SUPABASE_ANON_KEY = window.SUPABASE_PROJECT_CONFIG?.anonKey;
+// Asynchronously fetch config and initialize Supabase
+async function initializeSupabaseAdmin() {
+    try {
+        const response = await fetch('/.netlify/functions/config');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const config = await response.json();
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    alert('CRITICAL Error: Supabase config not found. Check config.js and HTML inclusion.');
-    // Prevent further execution
-    throw new Error("Supabase configuration missing."); 
+        if (!config.url || !config.anonKey) {
+            throw new Error('Fetched config is missing URL or anonKey.');
+        }
+
+        // Check if Supabase library is loaded
+        if (typeof supabase === 'undefined' || typeof supabase.createClient !== 'function') {
+            throw new Error('Supabase client library not loaded.');
+        }
+
+        // Initialize and return the client
+        return supabase.createClient(config.url, config.anonKey);
+
+    } catch (error) {
+        console.error('CRITICAL Error initializing Supabase:', error);
+        alert('CRITICAL Error: Could not initialize Supabase client. Check console for details.');
+        // Prevent further execution by returning null or re-throwing
+        return null;
+    }
 }
 
-// Check if createClient exists (loaded from Supabase CDN)
-if (typeof supabase === 'undefined' || typeof supabase.createClient !== 'function') {
-     alert('CRITICAL Error: Supabase client library not loaded. Check network or script tag in HTML.');
-     throw new Error("Supabase client library missing.");
-}
-
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// --- Global Variable for Supabase Client ---
+let supabaseClient = null; // Will be initialized asynchronously
 
 // --- DOM Elements ---
 const loginSection = document.getElementById('login-section');
@@ -699,7 +712,18 @@ async function checkInitialSession() {
     }
 }
 
-checkInitialSession();
+async function initializeAdminPortal() {
+    try {
+        supabaseClient = await initializeSupabaseAdmin();
+        await checkInitialSession(); // This now depends on supabaseClient being initialized
+    } catch (initError) {
+        console.error("Initialization failed:", initError);
+        // Display error to user appropriately, maybe disable forms
+        loginMessage.textContent = 'Error loading admin portal configuration.';
+        loginMessage.classList.add('text-red-500');
+        loginButton.disabled = true;
+    }
+}
 
 // --- Helper Functions (Add showMessage and getFormMessageElement back if needed) ---
 function showMessage(element, message, isError = false) {
@@ -794,4 +818,8 @@ async function deleteStorageFiles(filesToDelete) {
         }
     }
     return errors;
-} 
+}
+
+// --- Initialization ---
+// Start the initialization process when the script loads
+document.addEventListener('DOMContentLoaded', initializeAdminPortal); 

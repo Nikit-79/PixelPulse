@@ -1,18 +1,37 @@
-// --- Supabase Client Initialization ---
-// Load keys from config.js (ensure config.js is loaded in HTML first)
-const SUPABASE_URL_GLOBAL = window.SUPABASE_PROJECT_CONFIG?.url;
-const SUPABASE_ANON_KEY_GLOBAL = window.SUPABASE_PROJECT_CONFIG?.anonKey;
-let supabaseClient = null; // Keep this name as it's used throughout
+// Asynchronously fetch config and initialize Supabase
+async function initializeSupabaseGlobal() {
+    try {
+        const response = await fetch('/.netlify/functions/config');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const config = await response.json();
 
-if (SUPABASE_URL_GLOBAL && SUPABASE_ANON_KEY_GLOBAL && typeof supabase !== 'undefined' && typeof supabase.createClient === 'function') {
-    supabaseClient = supabase.createClient(SUPABASE_URL_GLOBAL, SUPABASE_ANON_KEY_GLOBAL);
-} else {
-    console.error('Supabase client could not be initialized in script.js. Check config.js and script loading order in HTML.');
-    // Display fallback content immediately if initialization fails here
-    displayFallbackContent('newsletters-grid', 'Error: Cannot connect to database.');
-    displayFallbackContent('featured-content', '');
-    displayFallbackContent('research-cards', 'Error: Cannot connect to database.');
+        if (!config.url || !config.anonKey) {
+            throw new Error('Fetched config is missing URL or anonKey.');
+        }
+
+        // Check if Supabase library is loaded
+        if (typeof supabase === 'undefined' || typeof supabase.createClient !== 'function') {
+            throw new Error('Supabase client library not loaded.');
+        }
+
+        // Initialize and return the client
+        return supabase.createClient(config.url, config.anonKey);
+
+    } catch (error) {
+        console.error('CRITICAL Error initializing Supabase in script.js:', error);
+        // Display fallback content or indicate error
+        displayFallbackContent('newsletters-grid', 'Error: Cannot connect to database.');
+        displayFallbackContent('featured-content', '');
+        displayFallbackContent('research-cards', 'Error: Cannot connect to database.');
+        displayFallbackContent('team-grid', 'Error: Cannot connect to database.'); // Ensure team gets fallback too
+        return null;
+    }
 }
+
+// --- Global Variable for Supabase Client ---
+let supabaseClient = null; // Will be initialized asynchronously
 
 // Helper function to open links in new tab
 function openLink(url) {
@@ -179,17 +198,16 @@ function addDynamicBackground(element) {
 }
 
 // Initialize dynamic backgrounds
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     console.log("DOM fully loaded and parsed.");
+
+    // Initialize Supabase client asynchronously
+    supabaseClient = await initializeSupabaseGlobal();
 
     // Initialize Supabase client check
     if (!supabaseClient) {
         console.error("Supabase client failed to initialize. Cannot load dynamic content.");
-        // Optionally display error messages in UI elements
-        displayFallbackContent('team-grid', 'Error: Cannot connect to database.');
-        displayFallbackContent('newsletters-grid', 'Error: Cannot connect to database.');
-        displayFallbackContent('featured-content', '');
-        displayFallbackContent('research-cards', 'Error: Cannot connect to database.');
+        // Fallback content is already displayed within initializeSupabaseGlobal error handling
         return; // Stop further execution if client is missing
     }
     console.log("Supabase client appears initialized.");

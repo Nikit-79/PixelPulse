@@ -14,127 +14,14 @@
     <link rel="stylesheet" href="styles.css">
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'rich-black': '#001219',  // Rich Black
-              'oxford-blue': '#14213D', // Oxford Blue
-              'chambray': '#1B4965',    // Chambray
-              'silverlake': '#5FA8D3',  // Silverlake Blue
-              'platinum': '#E5E5E5',    // Platinum
-              'stardust': '#F8F9FA',    // Stardust White
-              primary: '#1B4965',       // Using Chambray as primary
-              secondary: '#5FA8D3',     // Using Silverlake as secondary
-              darkBlue: '#001219',      // Using Rich Black
-              textPrimary: '#14213D',   // Using Oxford Blue
-              textSecondary: '#5FA8D3', // Using Silverlake
-              bgLight: '#E5E5E5',       // Using Platinum
-            },
-            fontFamily: {
-              josefin: ['Josefin Sans', 'sans-serif'],
-            },
-            animation: {
-              'fade-in': 'fadeIn 1s ease-in',
-              'slide-up': 'slideUp 0.5s ease-out',
-              'bounce-slow': 'bounce 3s infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'gradient-x': 'gradient-x 15s ease infinite',
-              'gradient-y': 'gradient-y 15s ease infinite',
-              'gradient-xy': 'gradient-xy 15s ease infinite',
-              'scale-up': 'scaleUp 0.5s ease-out',
-              'float': 'float 6s ease-in-out infinite',
-              'spin-slow': 'spin 8s linear infinite',
-              'wiggle': 'wiggle 1s ease-in-out infinite',
-              'glow': 'glow 2s ease-in-out infinite',
-              'slide-in-left': 'slideInLeft 0.5s ease-out',
-              'slide-in-right': 'slideInRight 0.5s ease-out',
-              'rotate-center': 'rotateCenter 20s linear infinite',
-              'scale-pulse': 'scalePulse 2s ease-in-out infinite',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              slideUp: {
-                '0%': { transform: 'translateY(20px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
-              },
-              scaleUp: {
-                '0%': { transform: 'scale(0.8)', opacity: '0' },
-                '100%': { transform: 'scale(1)', opacity: '1' },
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-10px)' },
-              },
-              wiggle: {
-                '0%, 100%': { transform: 'rotate(-3deg)' },
-                '50%': { transform: 'rotate(3deg)' },
-              },
-              glow: {
-                '0%, 100%': { opacity: '1' },
-                '50%': { opacity: '0.5', filter: 'brightness(150%)' },
-              },
-              slideInLeft: {
-                '0%': { transform: 'translateX(-100%)', opacity: '0' },
-                '100%': { transform: 'translateX(0)', opacity: '1' },
-              },
-              slideInRight: {
-                '0%': { transform: 'translateX(100%)', opacity: '0' },
-                '100%': { transform: 'translateX(0)', opacity: '1' },
-              },
-              rotateCenter: {
-                '0%': { transform: 'rotate(0deg)' },
-                '100%': { transform: 'rotate(360deg)' },
-              },
-              scalePulse: {
-                '0%, 100%': { transform: 'scale(1)' },
-                '50%': { transform: 'scale(1.05)' },
-              },
-              'gradient-y': {
-                '0%, 100%': {
-                  'background-size': '400% 400%',
-                  'background-position': 'center top'
-                },
-                '50%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'center center'
-                }
-              },
-              'gradient-x': {
-                '0%, 100%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'left center'
-                },
-                '50%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'right center'
-                }
-              },
-              'gradient-xy': {
-                '0%, 100%': {
-                  'background-size': '400% 400%',
-                  'background-position': 'left center'
-                },
-                '50%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'right center'
-                }
-              }
-            },
-          },
-        },
-      }
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script defer src="https://friconix.com/cdn/friconix.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
 
   <body class="bg-platinum font-josefin">
