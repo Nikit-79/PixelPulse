@@ -680,6 +680,7 @@ teamForm?.addEventListener('submit', async (e) => {
 });
 
 // --- Auth State Change Handling ---
+/* MOVED to initializeAdminPortal:
 supabaseClient.auth.onAuthStateChange((event, session) => {
     console.log('Auth event:', event, 'Session:', session);
     const user = session?.user;
@@ -702,6 +703,7 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
         if(adminTeamList) adminTeamList.innerHTML = '';
     }
 });
+*/
 
 // --- Initial Check ---
 async function checkInitialSession() {
@@ -722,10 +724,49 @@ async function checkInitialSession() {
 async function initializeAdminPortal() {
     try {
         supabaseClient = await initializeSupabaseAdmin();
+        if (!supabaseClient) throw new Error("Supabase client initialization failed."); // Add check
+
+        // SETUP AUTH LISTENER HERE, only after client is valid
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            console.log('Auth event:', event, 'Session:', session);
+            const user = session?.user;
+        
+            if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+                if (user) {
+                    loginSection?.classList.add('hidden');
+                    adminContent?.classList.remove('hidden');
+                    loadAllAdminLists(); 
+                    setupCancelButtons(); 
+                    // Ensure login button is disabled if user is signed in
+                    if(loginButton) loginButton.disabled = true; 
+                } else {
+                    loginSection?.classList.remove('hidden');
+                    adminContent?.classList.add('hidden');
+                    // Re-enable login button if user is signed out and it exists
+                    if(loginButton) {
+                        loginButton.disabled = false;
+                        loginButton.textContent = 'Send Login Link';
+                    }
+                }
+            } else if (event === 'SIGNED_OUT') {
+                loginSection?.classList.remove('hidden');
+                adminContent?.classList.add('hidden');
+                if(adminResearchList) adminResearchList.innerHTML = '';
+                if(adminNewsletterList) adminNewsletterList.innerHTML = '';
+                if(adminTeamList) adminTeamList.innerHTML = '';
+                 // Re-enable login button on sign out
+                 if(loginButton) {
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Send Login Link';
+                 }
+            }
+        });
+
         // Client is ready, check session
         await checkInitialSession(); 
         
-        // Re-enable the login button IF the login section is still visible
+        // Re-enable the login button IF the login section is still visible 
+        // (This might be redundant now due to logic in onAuthStateChange, but safe to keep)
         if (loginButton && !loginSection.classList.contains('hidden')) {
             loginButton.disabled = false;
             loginButton.textContent = 'Send Login Link'; 
